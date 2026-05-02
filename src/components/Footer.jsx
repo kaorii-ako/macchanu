@@ -8,11 +8,11 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-white/5 bg-black">
       <div className="absolute inset-0 bg-gradient-to-t from-mac-teal/5 to-transparent" />
-      
+
       <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="md:col-span-2">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               className="flex items-center gap-3 mb-6"
@@ -42,14 +42,10 @@ export default function Footer() {
 
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="text-mac-gold font-semibold tracking-wider mb-4">{title}</h4>
+              <h4 className="text-mac-gold font-semibold tracking-widest text-xs mb-4">{title}</h4>
               <ul className="space-y-3">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-white/50 hover:text-mac-teal transition-colors text-sm">
-                      {link}
-                    </a>
-                  </li>
+                  <li key={link}><a href="#" className="text-white/50 hover:text-mac-teal transition-colors">{link}</a></li>
                 ))}
               </ul>
             </div>
@@ -57,12 +53,8 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/30 text-sm">
-            © 2026 Macchanu Racing. Amnuay Silpa School.
-          </p>
-          <p className="text-white/30 text-sm tracking-widest">
-            JAPAN NATIONAL FINALS • 14 JUNE 2026
-          </p>
+          <p className="text-white/30">© 2026 Macchanu Racing. Amnuay Silpa School.</p>
+          <p className="text-white/30 tracking-widest text-sm">JAPAN NATIONAL FINALS • 14 JUNE 2026</p>
         </div>
       </div>
     </footer>

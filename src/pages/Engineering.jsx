@@ -54,24 +54,24 @@ export default function Engineering() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-6"
           >
-            <span className="px-4 py-2 rounded-full bg-white/5 border border-mac-green/30 text-mac-green text-sm tracking-widest">
+            <span className="px-4 py-2 rounded-full bg-white/5 border border-mac-green/30 text-mac-green text-xs tracking-widest">
               ENGINEERING EXCELLENCE
             </span>
           </motion.div>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold mb-6"
+            className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6"
           >
             <span className="text-white">Our </span>
             <span className="text-gradient">Engineering</span>
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-white/50 max-w-2xl mx-auto"
+            className="text-lg text-white/50 max-w-2xl mx-auto"
           >
             Precision engineering meets aerodynamic innovation. Every component designed for maximum performance.
           </motion.p>
@@ -80,20 +80,21 @@ export default function Engineering() {
 
       {/* Car Prototype Showcase */}
       <section className="section-padding pt-0">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          className="relative rounded-3xl overflow-hidden"
+          viewport={{ once: true }}
+          className="max-w-5xl mx-auto glass-card p-10 md:p-16 text-center relative overflow-hidden"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-mac-teal/20 via-mac-black to-mac-gold/20" />
-          <div className="relative z-10 p-12 md:p-20 text-center">
+          <div className="absolute inset-0 bg-gradient-to-br from-mac-teal/10 to-mac-gold/10" />
+          <div className="relative z-10">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Our Car Prototype</h2>
             <p className="text-white/50 text-lg mb-8 max-w-2xl mx-auto">
               Designed using industry-standard CAD/CAM software and validated through Computational Fluid Dynamics analysis.
             </p>
             <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-mac-teal/30">
               <span className="w-2 h-2 rounded-full bg-mac-green animate-pulse" />
-              <span className="text-mac-teal tracking-wider">Status: Testing & Optimization</span>
+              <span className="text-mac-teal font-grotesk tracking-widest text-sm">Status: Testing & Optimization</span>
             </div>
           </div>
         </motion.div>
@@ -101,9 +102,10 @@ export default function Engineering() {
 
       {/* Inventions */}
       <section className="section-padding">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           className="text-3xl md:text-4xl font-bold text-center mb-12"
         >
           <span className="text-white">Our </span>
@@ -117,25 +119,26 @@ export default function Engineering() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.15 }}
-              className="glass-card p-8 group relative overflow-hidden"
+              viewport={{ once: true }}
+              className="glass-card-hover p-8 group"
             >
-              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${item.gradient}`} />
-              
+              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${item.gradient} rounded-t-3xl`} />
+
               <div className="flex items-start gap-6 mb-6">
                 <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center text-4xl shrink-0 group-hover:scale-110 transition-transform`}>
                   {item.icon}
                 </div>
                 <div>
-                  <h3 className="text-2xl font-semibold text-white mb-2">{item.title}</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2">{item.title}</h3>
                   <p className="text-white/50 text-sm">{item.description}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
-                {item.specs.map((spec) => (
+                {item.specs.map(spec => (
                   <div key={spec.label} className="text-center">
                     <div className="text-xs text-white/30 mb-1">{spec.label}</div>
-                    <div className="text-sm text-mac-teal font-semibold">{spec.value}</div>
+                    <div className="text-sm text-mac-teal font-bold">{spec.value}</div>
                   </div>
                 ))}
               </div>
@@ -146,9 +149,10 @@ export default function Engineering() {
 
       {/* Timeline */}
       <section className="section-padding">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           className="text-3xl md:text-4xl font-bold text-center mb-12"
         >
           <span className="text-white">Project </span>
@@ -159,25 +163,26 @@ export default function Engineering() {
           <div className="relative">
             {/* Timeline line */}
             <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-mac-teal via-mac-gold to-mac-red" />
-            
+
             {timeline.map((item, i) => (
               <motion.div
                 key={item.date}
                 initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
                 className={`relative flex items-center gap-6 mb-8 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
               >
                 <div className={`flex-1 ${i % 2 === 0 ? 'md:text-right' : 'md:text-left'} pl-12 md:pl-0`}>
-                  <div className="glass-card-hover p-6">
-                    <span className="text-mac-gold text-sm tracking-wider">{item.date}</span>
-                    <h3 className="text-lg font-semibold text-white mt-1 mb-2">{item.title}</h3>
+                  <div className="glass-card p-6">
+                    <span className="text-mac-gold text-xs tracking-widest">{item.date}</span>
+                    <h3 className="text-lg font-bold text-white mt-1 mb-2">{item.title}</h3>
                     <p className="text-white/50 text-sm">{item.desc}</p>
                   </div>
                 </div>
-                
+
                 <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-mac-gold shadow-[0_0_20px_rgba(214,183,71,0.5)]" />
-                
+
                 <div className="hidden md:block flex-1" />
               </motion.div>
             ))}
@@ -188,30 +193,33 @@ export default function Engineering() {
       {/* Budget Breakdown */}
       <section className="section-padding">
         <div className="max-w-4xl mx-auto">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             className="glass-card p-8 md:p-12"
           >
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center">Budget Breakdown</h2>
-            
-            <div className="space-y-6">
+
+            <div className="space-y-8">
               {budgetItems.map((item, i) => (
                 <motion.div
                   key={item.name}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1 }}
+                  viewport={{ once: true }}
                 >
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-white/70">{item.name}</span>
-                    <span className="text-mac-gold font-semibold">{item.amount}</span>
+                    <span className="text-white/70 font-grotesk">{item.name}</span>
+                    <span className="text-mac-gold font-bold">{item.amount}</span>
                   </div>
-                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                    <motion.div 
+                  <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                    <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${item.percent}%` }}
-                      transition={{ duration: 1, delay: i * 0.1 }}
+                      transition={{ duration: 1.2, delay: i * 0.1 }}
+                      viewport={{ once: true }}
                       className="h-full bg-gradient-to-r from-mac-teal to-mac-gold rounded-full"
                     />
                   </div>
@@ -219,9 +227,9 @@ export default function Engineering() {
               ))}
             </div>
 
-            <div className="mt-8 pt-8 border-t border-white/10 flex justify-between items-center">
-              <span className="text-white/50">Total Budget</span>
-              <span className="text-2xl font-bold text-gradient">฿ 675,000</span>
+            <div className="mt-10 pt-8 border-t border-white/10 flex justify-between items-center">
+              <span className="text-white/50 font-grotesk">TOTAL BUDGET</span>
+              <span className="text-2xl font-extrabold text-gradient">฿ 675,000</span>
             </div>
           </motion.div>
         </div>
@@ -229,12 +237,13 @@ export default function Engineering() {
 
       {/* Pit Display */}
       <section className="section-padding pt-0">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           className="max-w-4xl mx-auto text-center"
         >
-          <span className="px-4 py-2 rounded-full bg-white/5 border border-mac-blue/30 text-mac-blue text-sm tracking-widest mb-6 inline-block">
+          <span className="px-4 py-2 rounded-full bg-white/5 border border-mac-blue/30 text-mac-blue text-xs tracking-widest mb-6 inline-block">
             PIT DISPLAY
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Pit Display</h2>

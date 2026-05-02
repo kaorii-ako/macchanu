@@ -2,52 +2,52 @@ import { motion } from 'framer-motion'
 
 const teamMembers = [
   {
-    name: 'Neena',
-    fullName: 'Chalisa Nitayavardhana',
+    name: 'Chalisa Nitayavardhana',
+    nickname: 'Neena',
     role: 'Team Manager',
-    description: 'My role is to coordinate and supervise the work of my teammates, ensuring that everyone collaborates effectively and all requirements are met to the highest standard. I also try my best to support them so that we feel more comfortable working as a team to produce the best quality outcome.',
+    desc: 'Coordinates and supervises teammates, ensuring everyone collaborates effectively and all requirements are met to the highest standard.',
+    color: 'from-mac-gold to-mac-gold-light',
     icon: '👑',
-    accent: 'from-mac-gold to-mac-gold-light',
   },
   {
-    name: 'Pimmy',
-    fullName: 'Pimyada Lertbutsayanukul',
-    role: 'Graphics Designer',
-    description: 'My role is to oversee the visuals of the team and make sure our graphics are cohesive, clear, and aligned with our team identity. I am also responsible for our logo, posters, and other promotional materials for our team.',
-    icon: '🎨',
-    accent: 'from-mac-red to-mac-gold',
-  },
-  {
-    name: 'Sky',
-    fullName: 'Tasschol Laoarakpibul',
+    name: 'Tasschol Laoarakpibul',
+    nickname: 'Sky',
     role: 'Lead Engineer',
-    description: 'My role involves manufacturing, designing cars, and supervising other engineers to ensure that all work are of the highest quality possible. In addition to supervising the engineers, I also work with them to brainstorm ideas, give each other tips for CAD and helping each other to finish work in time.',
-    icon: '⚙️',
-    accent: 'from-mac-teal to-mac-teal-light',
-  },
-  {
-    name: 'Pep',
-    fullName: 'Paphakorn Pongvitayapanu',
-    role: 'Manufacturing Engineer',
-    description: 'My main role is to mainly design and manufacture the sub-components of the car like the wheel support and aerodynamic components. Furthermore, I also help the engineer design parts to be easily manufactured with the limited tools that we have. I am also responsible for designing part of the pit display.',
+    desc: 'Manufacturing, designing cars, and supervising other engineers. Brainstorms ideas, gives CAD tips, and helps the team finish work on time.',
+    color: 'from-mac-teal to-mac-teal-light',
     icon: '🔧',
-    accent: 'from-mac-blue to-mac-teal',
   },
   {
-    name: 'Copter',
-    fullName: 'Anantawat Kulthaveesup',
+    name: 'Paphakorn Pongvitayapanu',
+    nickname: 'Pep',
+    role: 'Manufacturing Engineer',
+    desc: 'Designs and manufactures sub-components like wheel support and aerodynamic components. Also designs parts of the pit display.',
+    color: 'from-mac-teal-light to-mac-gold',
+    icon: '⚙️',
+  },
+  {
+    name: 'Anantawat Kulthaveesup',
+    nickname: 'Copter',
     role: 'Design Engineer',
-    description: 'My role is to develop and make the car\'s design to achieve better performance within the F1 in Schools regulations. I am responsible for creating CAD models, and ensuring the car is structurally sound and manufacturable. I work closely with the CFD and manufacturing teams to test, analyze, and improve our design.',
-    icon: '📐',
-    accent: 'from-mac-green to-mac-green-dark',
+    desc: 'Develops the car design to achieve better performance. Creates CAD models and ensures structural integrity and manufacturability.',
+    color: 'from-mac-gold to-mac-teal',
+    icon: '🎨',
   },
   {
-    name: 'Kao',
-    fullName: 'Tawin Tangsukson',
+    name: 'Pimyada Lertbutsayanukul',
+    nickname: 'Pimmy',
+    role: 'Graphic Designer',
+    desc: 'Oversees visuals, ensuring graphics are cohesive and aligned with team identity. Responsible for logo, posters, and promotional materials.',
+    color: 'from-mac-gold-light to-mac-teal-light',
+    icon: '🖌️',
+  },
+  {
+    name: 'Tawin Tangsukson',
+    nickname: 'Kao',
     role: 'Analytical Engineer',
-    description: 'My role is to check the aerodynamics of the car using Computer Fluid Dynamics to help improve the quality and the speed of the car. Another role of mine is to design and maintain our website making sure our website is appealing and easy to navigate.',
+    desc: 'Checks aerodynamics using CFD and designs/maintains the team website. Ensures the website is appealing and easy to navigate.',
+    color: 'from-mac-teal to-mac-gold-light',
     icon: '📊',
-    accent: 'from-mac-teal-light to-mac-teal',
   },
 ]
 
@@ -56,129 +56,173 @@ export default function Team() {
     <div className="pt-24">
       {/* Hero */}
       <section className="section-padding pb-12">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-6"
           >
-            <span className="px-4 py-2 rounded-full bg-white/5 border border-mac-teal/30 text-mac-teal text-sm tracking-widest">
-              THE DREAM TEAM
+            <span className="px-4 py-2 rounded-full bg-white/5 border border-mac-teal/30 text-mac-teal text-xs font-mono tracking-widest">
+              THE TEAM
             </span>
           </motion.div>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold mb-6"
+            className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6"
           >
             <span className="text-white">Meet </span>
-            <span className="text-gradient">Our Team</span>
+            <span className="text-gradient">Macchanu</span>
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-white/50 max-w-2xl mx-auto"
+            className="text-lg text-white/50 max-w-2xl mx-auto"
           >
-            Macchanu consists of 6 Amnuay Silpa students sharing different skill sets but the same mindset, aspiring for greatness.
+            Six students from Amnuay Silpa School sharing different skill sets but the same mindset — aspiring for greatness and the urge to be number one.
           </motion.p>
         </div>
       </section>
 
-      {/* Team Grid */}
+      {/* Team Members */}
       <section className="section-padding pt-0">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {teamMembers.map((member, i) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="glass-card-hover p-8 group relative overflow-hidden"
-              >
-                {/* Accent gradient */}
-                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${member.accent}`} />
-                
-                <div className="flex items-start justify-between mb-6">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${member.accent} flex items-center justify-center text-3xl group-hover:scale-110 transition-transform`}>
-                    {member.icon}
-                  </div>
-                  <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
-                    <span className="text-mac-gold font-bold">{i + 1}</span>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
+          {teamMembers.map((member, i) => (
+            <motion.div
+              key={member.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              viewport={{ once: true }}
+              className="glass-card-hover p-8 group relative overflow-hidden"
+            >
+              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${member.gradient || member.color}`} />
+
+              <div className="relative z-10">
+                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-white/5 to-white/10 flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 transition-transform">
+                  {member.icon}
                 </div>
 
-                <h3 className="text-2xl font-semibold text-white mb-1">{member.name}</h3>
-                <p className="text-sm text-mac-teal mb-4 tracking-wider">{member.role}</p>
-                <p className="text-white/50 text-sm leading-relaxed">{member.description}</p>
-                
-                {/* Decorative corner */}
-                <div className="absolute bottom-0 right-0 w-24 h-24 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <svg viewBox="0 0 100 100" className="w-full h-full">
-                    <path d="M100 100 L100 50 Q100 0 50 0 Z" fill="currentColor" />
-                  </svg>
+                <div className="text-center">
+                  <span className="text-xs text-mac-teal/70 font-mono tracking-widest">{member.role}</span>
+                  <h3 className="text-xl font-bold text-white mt-1 mb-1">{member.name}</h3>
+                  <p className="text-mac-gold/70 text-sm italic mb-3">@{member.nickname}</p>
+                  <p className="text-white/40 text-sm leading-relaxed">{member.desc}</p>
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Team Values */}
+      {/* Team Identity */}
       <section className="section-padding">
-        <div className="max-w-4xl mx-auto">
-          <motion.div 
+        <div className="max-w-5xl mx-auto px-4">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="glass-card p-8 md:p-12 text-center"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
           >
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">Our Shared Vision</h2>
-            <p className="text-lg text-white/60 leading-relaxed">
-              As a team, we are certain our combined knowledge will bring us to success. We represent both Amnuay Silpa and Thailand in the competition to bring honor and recognition to our culture. After gaining experience in the 2025 Thailand National competition, we are now aiming for the Japan National Finals and potentially the World Finals.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <span className="px-4 py-2 rounded-full bg-mac-teal/20 text-mac-teal text-sm">Collaboration</span>
-              <span className="px-4 py-2 rounded-full bg-mac-gold/20 text-mac-gold text-sm">Excellence</span>
-              <span className="px-4 py-2 rounded-full bg-mac-blue/20 text-mac-blue text-sm">Innovation</span>
-              <span className="px-4 py-2 rounded-full bg-mac-green/20 text-mac-green text-sm">Dedication</span>
+            <div>
+              <span className="text-xs text-mac-gold font-mono tracking-widest mb-4 block">OUR IDENTITY</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Why <span className="text-gradient">Macchanu?</span></h2>
+              <p className="text-white/50 leading-relaxed mb-4">
+                Macchanu is the son of the monkey-headed god Hanuman — a figure of strength, unwavering dedication, and grace in Thai culture. A hybrid creature — part monkey, part fish — he represents the bridge between two worlds: Thai heritage and international innovation.
+              </p>
+              <p className="text-white/50 leading-relaxed">
+                We chose the fish as our logo identity, representing fluidity. Our muted teal and blue palette communicates a calm yet bold presence — subtle in tone, but impactful in identity.
+              </p>
+            </div>
+            <div className="glass-card p-10 text-center">
+              <div className="text-6xl mb-4">🐒🐟</div>
+              <h3 className="text-xl font-bold text-white mb-2">Team Name Origin</h3>
+              <p className="text-white/40 text-sm">
+                Mythological strength × Hydrodynamic innovation = Macchanu Racing
+              </p>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Why We Compete */}
-      <section className="section-padding pt-0">
-        <div className="max-w-5xl mx-auto">
-          <motion.h2 
+      {/* Why Compete */}
+      <section className="section-padding">
+        <div className="max-w-5xl mx-auto px-4">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-3xl md:text-4xl font-bold text-center mb-12"
+            viewport={{ once: true }}
+            className="text-center mb-12"
           >
-            <span className="text-white">Why We </span>
-            <span className="text-gold-gradient">Compete</span>
-          </motion.h2>
+            <span className="text-xs text-mac-teal font-mono tracking-widest mb-4 block">OUR MISSION</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">Why We <span className="text-gold-gradient">Compete</span></h2>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { title: 'Represent', desc: 'Represent both Amnuay Silpa and Thailand in the competition to bring honor and recognition to our culture.', icon: '🇹🇭' },
-              { title: 'Understand', desc: 'After competing in Thailand National competition in 2025 we gained understanding of how serious and demanding the competition is.', icon: '📚' },
-              { title: 'Succeed', desc: 'Win prizes and make the team proud. After gaining experience in Japan we also want to look forward to possibly competing in the Thai National & World finals.', icon: '🏆' },
+              {
+                title: 'Represent',
+                desc: 'Both Amnuay Silpa and Thailand to bring honor and recognition to our culture.',
+                icon: '🇹🇭',
+                color: 'from-mac-red to-mac-gold',
+              },
+              {
+                title: 'Understand',
+                desc: 'After competing in Thailand Nationals 2025, we gained understanding of how serious and demanding this competition is.',
+                icon: '📖',
+                color: 'from-mac-teal to-mac-teal-light',
+              },
+              {
+                title: 'Succeed',
+                desc: 'Win prizes and make the team proud. Look forward to Thai National & World Finals.',
+                icon: '🏆',
+                color: 'from-mac-gold to-mac-gold-light',
+              },
+              {
+                title: 'Legacy',
+                desc: 'We are the first school in Asia to do F1 in Schools since 2018. Continue the legacy — be a legacy in motion!',
+                icon: '⚡',
+                color: 'from-mac-teal to-mac-gold',
+              },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="glass-card p-8 text-center"
+                transition={{ delay: i * 0.15 }}
+                viewport={{ once: true }}
+                className="glass-card-hover p-6 text-center"
               >
                 <div className="text-4xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-semibold text-mac-gold mb-3">{item.title}</h3>
-                <p className="text-white/50 text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+                <p className="text-white/40 text-sm">{item.desc}</p>
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Competition Details */}
+      <section className="section-padding">
+        <div className="max-w-4xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="glass-card p-8 md:p-12 text-center"
+          >
+            <div className="text-5xl mb-4">🏎️</div>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">F1 in Schools — Japan National Finals 2026</h2>
+            <p className="text-white/50 max-w-2xl mx-auto leading-relaxed mb-8">
+              Teams from around the world use CAD/CAM software to design, manufacture, and race miniature F1 cars. We've competed in Thailand Nationals and now represent Asia at the Japan stage.
+            </p>
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-mac-gold/10 border border-mac-gold/30">
+              <span className="w-2 h-2 rounded-full bg-mac-green animate-pulse" />
+              <span className="text-mac-gold font-mono tracking-widest text-sm">COMPETITION DAY: 14 JUNE 2026</span>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>
