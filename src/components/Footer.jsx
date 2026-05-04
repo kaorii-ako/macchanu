@@ -27,7 +27,7 @@ export default function Footer() {
               Six students. One team. Driven by determination and ambition, we are building a legacy by motion.
             </p>
             <div className="flex gap-3">
-              <a href="#" aria-label="Instagram"
+              <a href="https://www.instagram.com/macchanu.racing/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
                 className="w-9 h-9 rounded-full flex items-center justify-center transition-all"
                 style={{ background: 'var(--theme-surface)', border: '1px solid var(--theme-border)' }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(25,117,126,0.5)'}
@@ -60,11 +60,11 @@ export default function Footer() {
             <h4 className="text-[10px] font-grotesk tracking-[0.2em] text-mac-gold mb-4">OUR PARTNERS</h4>
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3">
-                <img src="/PTT.png" alt="PTT" className="h-8 w-auto object-contain" style={{ filter: 'grayscale(0.3)' }} />
-                <span className="text-xs font-grotesk" style={{ color: 'var(--theme-text-faint)' }}>Title Sponsor</span>
+                <img src="/PTT.png" alt="PTT" className="w-auto object-contain" style={{ height: 40, filter: 'grayscale(0.3)' }} />
+                <span className="text-xs font-grotesk" style={{ color: 'var(--theme-text-faint)' }}>Orchid Sponsor</span>
               </div>
               <div className="flex items-center gap-3">
-                <img src="/FF.png" alt="FF" className="h-8 w-auto object-contain" style={{ filter: 'grayscale(0.3)' }} />
+                <img src="/FF.png" alt="FF" className="w-auto object-contain" style={{ height: 26, filter: 'grayscale(0.3)' }} />
                 <span className="text-xs font-grotesk" style={{ color: 'var(--theme-text-faint)' }}>Supporting Sponsor</span>
               </div>
             </div>

@@ -173,22 +173,24 @@ export default function Team() {
               </p>
             </div>
 
-            <div className="glass-card text-center">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-mac-gold/20 to-mac-teal/20 flex items-center justify-center">
-                  <span className="font-display text-xl text-mac-gold">M</span>
-                </div>
-                <div className="w-8 h-px bg-gradient-to-r from-mac-gold/50 to-mac-teal/50" />
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-mac-teal/20 to-mac-gold/20 flex items-center justify-center">
-                  <span className="font-display text-xl text-mac-teal">R</span>
-                </div>
+            <div className="glass-card text-center overflow-hidden" style={{ padding: 0 }}>
+              <div className="relative">
+                <img
+                  src="/IMG1.PNG"
+                  alt="Macchanu Mascot"
+                  className="w-full object-cover object-center"
+                  style={{ height: 200, filter: 'saturate(0.85)' }}
+                />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,15,0.7) 0%, transparent 55%)' }} />
               </div>
-              <h3 className="font-display text-2xl mb-2" style={{ color: 'var(--theme-text)' }}>
-                MACCHANU RACING
-              </h3>
-              <p className="text-sm font-grotesk" style={{ color: 'var(--theme-text-faint)' }}>
-                Mythological strength × Hydrodynamic innovation
-              </p>
+              <div style={{ padding: '1.5rem 2rem' }}>
+                <h3 className="font-display text-2xl mb-2" style={{ color: 'var(--theme-text)' }}>
+                  MACCHANU RACING
+                </h3>
+                <p className="text-sm font-grotesk" style={{ color: 'var(--theme-text-faint)' }}>
+                  Mythological strength × Hydrodynamic innovation
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>

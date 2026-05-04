@@ -1,62 +1,71 @@
 import { motion } from 'framer-motion'
 
+// Log scale: ฿5k → 34px, ฿25k → 58px, ฿100k → 82px, ฿300k → 110px
+function logoHeight(amount) {
+  const MIN = 34, MAX = 110
+  const logMin = Math.log(5000), logMax = Math.log(300000)
+  return Math.round(MIN + (MAX - MIN) * (Math.log(amount) - logMin) / (logMax - logMin))
+}
+
 const sponsors = [
-  { name: 'PTT', logo: '/PTT.png', tier: 'Title Sponsor' },
-  { name: 'FF',  logo: '/FF.png',  tier: 'Supporting Sponsor' },
+  { name: 'PTTEP', logo: '/PTT.png', tierName: 'Orchid', amount: 25000 },
+  { name: 'FF',    logo: '/FF.png',  tierName: 'Lily',   amount: 5000  },
 ]
+
+const GOAL = 675000
+const raised = sponsors.reduce((s, sp) => s + sp.amount, 0)
+const pct = parseFloat(((raised / GOAL) * 100).toFixed(1))
 
 const tiers = [
   {
     num: '01',
-    name: 'Jasmine',
+    name: 'Lily',
     amount: '฿ 5,000',
     gradient: 'from-mac-teal-light to-mac-teal',
     accent: '#2ba7b3',
     features: [
       'Acknowledgement on team website',
-      'Acknowledgement on social media',
-      'Logo on team uniforms',
-      'Logo on portfolios',
+      'Acknowledgement on social media platforms',
+      'Corporate logo designed on team uniforms',
+      'Corporate logo designed on portfolios',
     ],
   },
   {
     num: '02',
-    name: 'Lily',
+    name: 'Orchid',
     amount: '฿ 25,000',
     gradient: 'from-mac-teal to-mac-gold',
     accent: '#19757e',
     features: [
-      'All Jasmine benefits',
-      'Prominent logo on uniforms',
-      'Prominent logo on portfolios',
-      'Priority social media feature',
+      'All Lily benefits',
+      'More prominent logo on team uniforms',
+      'More prominent logo on portfolios',
     ],
   },
   {
     num: '03',
-    name: 'Orchid',
+    name: 'Jasmine',
     amount: '฿ 100,000',
     gradient: 'from-mac-gold to-mac-gold-light',
     accent: '#d6b747',
     features: [
-      'All Lily benefits',
-      'Logo on team car',
-      'Coordinated social media promotion',
-      'Corporate feature interview',
+      'All Orchid benefits',
+      'More prominent logo on uniforms and portfolios',
+      'Corporate logo on the team car',
+      'Coordinated promotion over social media',
     ],
   },
   {
     num: '04',
     name: 'Lotus',
-    amount: '฿ 200,000+',
+    amount: '฿ 200,000 – 300,000',
     gradient: 'from-mac-gold-dark to-mac-gold',
     accent: '#f0d15c',
     features: [
-      'All Orchid benefits',
-      'Most prominent logo everywhere',
-      'Business cards at event',
-      'Negotiated promotional goods',
-      'Exclusive title recognition',
+      'All Jasmine benefits',
+      'Most prominent logo on uniforms, portfolios, and car',
+      'Business cards presented at the event',
+      'Negotiated promotional goods at the event',
     ],
   },
 ]
@@ -138,14 +147,14 @@ export default function Sponsorship() {
         </div>
       </section>
 
-      {/* Current Sponsors */}
+      {/* Current Sponsors + Tracker */}
       <section className="section-padding">
         <div className="max-w-4xl mx-auto px-6 md:px-10">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-10"
           >
             <span className="text-xs text-mac-gold font-grotesk tracking-widest mb-3 block">CURRENT PARTNERS</span>
             <h2 className="font-display text-4xl md:text-5xl leading-none" style={{ color: 'var(--theme-text)' }}>
@@ -153,23 +162,99 @@ export default function Sponsorship() {
             </h2>
           </motion.div>
 
-          <div className="flex flex-wrap justify-center gap-8">
-            {sponsors.map((s, i) => (
+          {/* Tracker card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="glass-card mb-10"
+            style={{ padding: '2rem 2.5rem' }}
+          >
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-5">
+              <div>
+                <div className="text-[10px] font-grotesk tracking-widest mb-1" style={{ color: 'var(--theme-text-faint)' }}>
+                  TOTAL RAISED
+                </div>
+                <div className="font-display text-5xl md:text-6xl text-gradient leading-none">
+                  ฿ {raised.toLocaleString()}
+                </div>
+              </div>
+              <div className="sm:text-right">
+                <div className="text-[10px] font-grotesk tracking-widest mb-1" style={{ color: 'var(--theme-text-faint)' }}>
+                  BUDGET GOAL
+                </div>
+                <div className="font-display text-2xl leading-none" style={{ color: 'var(--theme-text-muted)' }}>
+                  ฿ {GOAL.toLocaleString()}
+                </div>
+              </div>
+            </div>
+
+            {/* Progress bar */}
+            <div className="h-2 rounded-full overflow-hidden mb-2.5" style={{ background: 'var(--theme-border)' }}>
               <motion.div
-                key={s.name}
-                initial={{ opacity: 0, scale: 0.92 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.15, duration: 0.5 }}
+                initial={{ width: 0 }}
+                whileInView={{ width: `${pct}%` }}
+                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: true }}
-                className="glass-card-hover flex flex-col items-center justify-center gap-3"
-                style={{ width: 200, padding: '2.5rem 2rem' }}
-              >
-                <img src={s.logo} alt={s.name} className="max-h-16 w-auto object-contain" />
-                <span className="text-[10px] font-grotesk tracking-[0.2em]" style={{ color: 'var(--theme-text-faint)' }}>
-                  {s.tier.toUpperCase()}
-                </span>
-              </motion.div>
-            ))}
+                className="h-full rounded-full"
+                style={{ background: 'linear-gradient(90deg, #19757e, #d6b747)' }}
+              />
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-xs font-grotesk" style={{ color: 'var(--theme-text-faint)' }}>
+                {pct}% funded
+              </span>
+              <span className="text-xs font-grotesk" style={{ color: 'var(--theme-text-faint)' }}>
+                ฿ {(GOAL - raised).toLocaleString()} remaining
+              </span>
+            </div>
+
+            {/* Sponsor breakdown */}
+            <div className="mt-5 pt-5 flex flex-wrap gap-4" style={{ borderTop: '1px solid var(--theme-border)' }}>
+              {sponsors.map(s => (
+                <div key={s.name} className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-mac-gold shrink-0" />
+                  <span className="text-xs font-grotesk" style={{ color: 'var(--theme-text-muted)' }}>
+                    {s.name}
+                  </span>
+                  <span className="text-xs font-grotesk text-mac-gold font-bold">
+                    ฿ {s.amount.toLocaleString()}
+                  </span>
+                  <span className="text-[10px] font-grotesk tracking-wide px-2 py-0.5 rounded-full"
+                    style={{ background: 'var(--theme-surface-hover)', color: 'var(--theme-text-faint)' }}>
+                    {s.tierName}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Sponsor logos — sized by tier */}
+          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+            {[...sponsors].sort((a, b) => b.amount - a.amount).map((s, i) => {
+              const h = logoHeight(s.amount)
+              return (
+                <motion.div
+                  key={s.name}
+                  initial={{ opacity: 0, scale: 0.88 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: i * 0.15, duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="flex flex-col items-center gap-3"
+                >
+                  <img
+                    src={s.logo}
+                    alt={s.name}
+                    style={{ height: h, width: 'auto', maxWidth: 200, objectFit: 'contain' }}
+                  />
+                  <div className="text-center">
+                    <div className="text-[10px] font-grotesk tracking-[0.18em]" style={{ color: 'var(--theme-text-faint)' }}>
+                      {s.tierName.toUpperCase()} TIER
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -199,13 +284,11 @@ export default function Sponsorship() {
                 viewport={{ once: true }}
                 className="glass-card-hover relative overflow-hidden flex flex-col"
               >
-                {/* Top stripe */}
                 <div className={`absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r ${tier.gradient}`} />
 
                 <div className="relative z-10 pt-2 flex flex-col flex-1">
-                  {/* Tier number badge */}
                   <div className="flex items-start justify-between mb-4">
-                    <span className="font-display text-4xl leading-none" style={{ color: tier.accent, opacity: 0.6 }}>
+                    <span className="font-display text-4xl leading-none" style={{ color: tier.accent, opacity: 0.5 }}>
                       {tier.num}
                     </span>
                   </div>
@@ -213,7 +296,7 @@ export default function Sponsorship() {
                   <h3 className="font-display text-2xl leading-none mb-1" style={{ color: 'var(--theme-text)' }}>
                     {tier.name.toUpperCase()}
                   </h3>
-                  <p className="font-display text-2xl mb-4" style={{ color: tier.accent }}>
+                  <p className="font-display text-xl mb-4" style={{ color: tier.accent }}>
                     {tier.amount}
                   </p>
 

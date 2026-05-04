@@ -350,17 +350,17 @@ export default function Home() {
             >
               <div className="relative w-full h-full min-h-[260px]">
                 <img
-                  src="/IMG4.PNG"
-                  alt="Our Car Prototype"
-                  className="w-full h-full object-cover"
-                  style={{ filter: 'saturate(0.85)' }}
+                  src="/IMG1.PNG"
+                  alt="Macchanu Racing"
+                  className="w-full h-full object-cover object-center"
+                  style={{ filter: 'saturate(0.7) brightness(0.6)' }}
                 />
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,15,0.7) 0%, transparent 60%)' }} />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,15,0.8) 0%, rgba(10,10,15,0.2) 60%, transparent 100%)' }} />
                 <div className="absolute bottom-5 left-5">
                   <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-grotesk tracking-widest text-mac-teal"
                     style={{ background: 'rgba(25,117,126,0.15)', border: '1px solid rgba(25,117,126,0.3)' }}>
                     <span className="w-1.5 h-1.5 rounded-full bg-mac-green animate-pulse" />
-                    Testing &amp; Optimization
+                    CAD / CFD / CNC
                   </div>
                 </div>
               </div>
