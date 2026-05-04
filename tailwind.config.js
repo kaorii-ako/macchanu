@@ -13,9 +13,13 @@ export default {
         'mac-blue': '#2574a7',
         'mac-red': '#8a1c1c',
         'mac-green': '#1dd169',
+        'mac-surface': '#f4f0e8',
+        'mac-surface-2': '#ece8df',
+        'mac-ink': '#0a0a0f',
       },
       fontFamily: {
         'grotesk': ['"Space Grotesk"', 'sans-serif'],
+        'display': ['"Bebas Neue"', 'Impact', 'sans-serif'],
       },
       animation: {
         'gradient': 'gradient 8s ease infinite',
