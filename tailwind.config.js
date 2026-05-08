@@ -5,12 +5,12 @@ export default {
     extend: {
       colors: {
         'mac-black': '#0a0a0f',
-        'mac-gold': '#d6b747',
-        'mac-gold-light': '#f0d15c',
-        'mac-gold-dark': '#b89a33',
-        'mac-teal': '#19757e',
-        'mac-teal-light': '#2ba7b3',
-        'mac-blue': '#2574a7',
+        'mac-gold': '#19757e',
+        'mac-gold-light': '#2ba7b3',
+        'mac-gold-dark': '#2574a7',
+        'mac-teal': '#d6b747',
+        'mac-teal-light': '#f0d15c',
+        'mac-blue': '#b89a33',
         'mac-red': '#8a1c1c',
         'mac-green': '#1dd169',
         'mac-surface': '#f4f0e8',

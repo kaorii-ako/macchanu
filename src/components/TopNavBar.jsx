@@ -8,6 +8,7 @@ const navLinks = [
   { path: '/team', label: 'Team' },
   { path: '/engineering', label: 'Engineering' },
   { path: '/sponsorship', label: 'Sponsorship' },
+  { path: '/merch', label: 'Merch' },
 ]
 
 function SunIcon() {

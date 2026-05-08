@@ -6,6 +6,7 @@ import Team from './pages/Team'
 import Engineering from './pages/Engineering'
 import Sponsorship from './pages/Sponsorship'
 import PdfViewer from './pages/PdfViewer'
+import Merch from './pages/Merch'
 import Footer from './components/Footer'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
               <Route path="/engineering" element={<Engineering />} />
               <Route path="/sponsorship" element={<Sponsorship />} />
               <Route path="/sponsorship-prospectus" element={<PdfViewer />} />
+              <Route path="/merch" element={<Merch />} />
             </Routes>
           </main>
           <Footer />
