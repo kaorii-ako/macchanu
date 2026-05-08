@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 const FORM_URL =
-  'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__UegpuRUME1SNVIxTFREWVU0Wlc3WUs5QUpPMUpBVy4u&embed=true'
+  'https://docs.google.com/forms/d/e/1FAIpQLSf8hnFXh3w1RKAxDOyLDTcB9bT85z28GopMyhRRzuqRn2CyEQ/viewform?embedded=true'
 
 
 export default function Merch() {
