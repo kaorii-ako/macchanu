@@ -5,7 +5,7 @@ const ThemeContext = createContext({ isDark: true, toggle: () => {} })
 export function ThemeProvider({ children }) {
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('macchanu-theme')
-    return saved ? saved === 'dark' : true
+    return saved ? saved === 'dark' : false
   })
 
   useEffect(() => {

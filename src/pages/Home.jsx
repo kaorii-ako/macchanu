@@ -438,7 +438,7 @@ export default function Home() {
 
             <div className="relative z-10 p-10 md:p-16 text-center">
               <span className="text-xs font-grotesk tracking-[0.25em] text-mac-gold/70 mb-4 block">JOIN OUR JOURNEY</span>
-              <h2 className="font-display text-5xl md:text-7xl leading-none text-white mb-4">
+              <h2 className="font-display text-5xl md:text-7xl leading-none mb-4" style={{ color: '#ffffff' }}>
                 HELP US RACE
                 <br />
                 <span className="text-gradient">THE WORLD.</span>
