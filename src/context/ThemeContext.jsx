@@ -3,14 +3,10 @@ import { createContext, useContext, useEffect, useState } from 'react'
 const ThemeContext = createContext({ isDark: true, toggle: () => {} })
 
 export function ThemeProvider({ children }) {
-  const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem('macchanu-theme')
-    return saved ? saved === 'dark' : false
-  })
+  const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
-    localStorage.setItem('macchanu-theme', isDark ? 'dark' : 'light')
   }, [isDark])
 
   return (
