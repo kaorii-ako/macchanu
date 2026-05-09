@@ -2,7 +2,8 @@ import { motion } from 'framer-motion'
 
 export default function Footer() {
   return (
-    <footer className="relative" style={{ background: 'var(--theme-footer-bg)', borderTop: '1px solid var(--theme-border)' }}>
+    <footer className="relative" style={{ background: 'var(--theme-footer-bg)' }}>
+      <div className="racing-stripe" style={{ top: 0 }} />
       <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(25,117,126,0.04), transparent)' }} />
 
       <div className="max-w-7xl mx-auto px-6 md:px-10 py-14 relative z-10">

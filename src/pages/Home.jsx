@@ -161,24 +161,35 @@ export default function Home() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.3 }}
-            className="flex items-end justify-center gap-1 mb-10"
+            className="flex flex-col items-center gap-3 mb-10"
           >
-            {[
-              { v: String(days).padStart(2,'0'),  l: 'DAYS' },
-              { v: String(hours).padStart(2,'0'), l: 'HRS' },
-              { v: String(mins).padStart(2,'0'),  l: 'MIN' },
-            ].map(({ v, l }, i) => (
-              <div key={l} className="flex items-end gap-1">
-                <div className="text-center">
-                  <div className="font-display text-5xl md:text-6xl text-mac-gold leading-none">{v}</div>
-                  <div className="text-[9px] font-grotesk tracking-[0.2em] mt-1" style={{ color: 'rgba(214,183,71,0.45)' }}>{l}</div>
+            <div className="flex items-center gap-2">
+              {[
+                { v: String(days).padStart(2,'0'),  l: 'DAYS' },
+                { v: String(hours).padStart(2,'0'), l: 'HRS' },
+                { v: String(mins).padStart(2,'0'),  l: 'MIN' },
+              ].map(({ v, l }, i) => (
+                <div key={l} className="flex items-center gap-2">
+                  <div className="text-center">
+                    <div
+                      className="font-display text-5xl md:text-6xl text-mac-gold leading-none px-4 py-3 rounded-2xl"
+                      style={{
+                        background: 'rgba(214,183,71,0.07)',
+                        border: '1px solid rgba(214,183,71,0.2)',
+                        minWidth: '4.5rem',
+                        boxShadow: '0 4px 24px rgba(214,183,71,0.08) inset',
+                      }}
+                    >{v}</div>
+                    <div className="text-[9px] font-grotesk tracking-[0.2em] mt-2" style={{ color: 'rgba(214,183,71,0.45)' }}>{l}</div>
+                  </div>
+                  {i < 2 && <span className="font-display text-3xl text-mac-gold/25 mb-5">:</span>}
                 </div>
-                {i < 2 && <span className="font-display text-3xl text-mac-gold/30 pb-5 mx-0.5">:</span>}
-              </div>
-            ))}
-            <div className="ml-4 pb-1 text-left">
-              <div className="text-[10px] font-grotesk tracking-widest text-white/25 uppercase">Until Competition</div>
-              <div className="text-[10px] font-grotesk tracking-widest text-mac-gold/45">JUNE 14 · JAPAN</div>
+              ))}
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-8 h-px" style={{ background: 'rgba(214,183,71,0.2)' }} />
+              <span className="text-[10px] font-grotesk tracking-[0.25em] text-mac-gold/45">JUNE 14 · JAPAN 2026</span>
+              <span className="w-8 h-px" style={{ background: 'rgba(214,183,71,0.2)' }} />
             </div>
           </motion.div>
 
@@ -220,9 +231,17 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="glass-card text-center"
+                className="glass-card text-center relative overflow-hidden"
                 style={{ padding: '1.5rem 1rem' }}
               >
+                <div
+                  className="absolute top-0 left-0 right-0 h-px"
+                  style={{
+                    background: i % 2 === 0
+                      ? 'linear-gradient(90deg, transparent, rgba(214,183,71,0.7), transparent)'
+                      : 'linear-gradient(90deg, transparent, rgba(25,117,126,0.7), transparent)'
+                  }}
+                />
                 <div className="font-display text-5xl md:text-6xl text-gradient mb-1">
                   <AnimatedCounter to={stat.value} />
                 </div>
