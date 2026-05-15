@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Outlet } from 's/react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Outlet, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import { ThemeProvider } from './context/ThemeContext'
 import TopNavBar from './components/TopNavBar'
 import Home from './pages/Home'
@@ -9,6 +10,12 @@ import PdfViewer from './pages/PdfViewer'
 import Merch from './pages/Merch'
 import AiChat from './pages/AiChat'
 import Footer from './components/Footer'
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  return null
+}
 
 function MainLayout() {
   return (
@@ -26,6 +33,7 @@ function App() {
       <Router>
         <div className="min-h-screen relative theme-root">
           <div className="noise-overlay" />
+          <ScrollToTop />
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<Home />} />

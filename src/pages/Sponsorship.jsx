@@ -8,11 +8,12 @@ function logoHeight(amount) {
 }
 
 const sponsors = [
+  { name: 'Amnuaysilpa School', logo: '/ANS.png', tierName: 'Jasmine', amount: 150000 },
   { name: 'PTTEP', logo: '/PTT.png', tierName: 'Orchid', amount: 25000 },
   { name: 'FF',    logo: '/FF.png',  tierName: 'Lily',   amount: 5000  },
 ]
 
-const GOAL = 675000
+const GOAL = 575000
 const raised = sponsors.reduce((s, sp) => s + sp.amount, 0)
 const pct = parseFloat(((raised / GOAL) * 100).toFixed(1))
 
@@ -245,7 +246,7 @@ export default function Sponsorship() {
                   <img
                     src={s.logo}
                     alt={s.name}
-                    style={{ height: h, width: 'auto', maxWidth: 200, objectFit: 'contain' }}
+                    style={{ height: h, width: 'auto', maxWidth: 200, objectFit: 'contain', ...(s.logo === '/ANS.png' && { borderRadius: '16px' }) }}
                   />
                   <div className="text-center">
                     <div className="text-[10px] font-grotesk tracking-[0.18em]" style={{ color: 'var(--theme-text-faint)' }}>

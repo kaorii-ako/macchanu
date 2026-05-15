@@ -103,8 +103,8 @@ export default function Merch() {
                   }}>
                     <span style={{
                       display: 'block',
-                      WebkitTextStroke: '1px rgba(214,183,71,0.55)',
-                      color: 'transparent',
+                      WebkitTextStroke: '2px rgba(214,183,71,0.8)',
+                      color: 'var(--theme-bg)',
                     }}>MACCHANU</span>
                     <span style={{
                       display: 'block',
@@ -117,7 +117,7 @@ export default function Merch() {
                       display: 'block',
                       fontSize: '0.48em',
                       letterSpacing: '0.22em',
-                      color: 'rgba(255,255,255,0.35)',
+                      color: 'var(--theme-text-muted)',
                     }}>COLLECTION</span>
                   </h1>
                 </div>
