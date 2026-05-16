@@ -112,6 +112,8 @@ export default function TopNavBar() {
           {/* Right: sponsor logos + theme toggle */}
           <div className="hidden md:flex items-center gap-4">
             <div className="flex items-center gap-3 pr-4 border-r border-[var(--theme-border)]">
+              <img src="/ANS.png" alt="ANS" className="h-6 w-auto object-contain opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all" style={{ borderRadius: '6px' }} />
+              <img src="/PC.webp" alt="ประชาชื่น" className="h-6 w-auto object-contain opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
               <img src="/PTT.png" alt="PTT" className="h-6 w-auto object-contain opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
               <img src="/FF.png"  alt="FF"  className="h-6 w-auto object-contain opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
             </div>
@@ -182,6 +184,8 @@ export default function TopNavBar() {
             transition={{ delay: 0.35 }}
             className="flex items-center gap-4 mt-4"
           >
+            <img src="/ANS.png" alt="ANS" className="h-8 w-auto opacity-50" style={{ borderRadius: '6px' }} />
+            <img src="/PC.webp" alt="ประชาชื่น" className="h-8 w-auto opacity-50" />
             <img src="/PTT.png" alt="PTT" className="h-8 w-auto opacity-50" />
             <img src="/FF.png"  alt="FF"  className="h-8 w-auto opacity-50" />
           </motion.div>

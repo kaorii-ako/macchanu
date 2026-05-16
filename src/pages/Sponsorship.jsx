@@ -9,6 +9,7 @@ function logoHeight(amount) {
 
 const sponsors = [
   { name: 'Amnuaysilpa School', logo: '/ANS.png', tierName: 'Jasmine', amount: 150000 },
+  { name: 'ประชาชื่นอิมเมจจิ้งเซ็นเตอร์', logo: '/PC.webp', tierName: 'Orchid', amount: 60000 },
   { name: 'PTTEP', logo: '/PTT.png', tierName: 'Orchid', amount: 25000 },
   { name: 'FF',    logo: '/FF.png',  tierName: 'Lily',   amount: 5000  },
 ]
