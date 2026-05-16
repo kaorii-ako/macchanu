@@ -14,7 +14,9 @@ No test runner or linter configured.
 
 ## Architecture
 
-React 18 + Vite SPA. React Router v6 with 5 routes:
+React 18 + Vite SPA. React Router v6 with two layout groups in `App.jsx`:
+
+**`MainLayout` (TopNavBar + Footer):**
 
 | Route | Component |
 |---|---|
@@ -23,10 +25,24 @@ React 18 + Vite SPA. React Router v6 with 5 routes:
 | `/engineering` | `src/pages/Engineering.jsx` |
 | `/sponsorship` | `src/pages/Sponsorship.jsx` |
 | `/sponsorship-prospectus` | `src/pages/PdfViewer.jsx` |
+| `/merch` | `src/pages/Merch.jsx` |
 
-`App.jsx` is the router shell — it renders `TopNavBar`, `<Routes>`, and `Footer` for every page.
+**Outside MainLayout (no nav/footer):**
 
-All data is hardcoded in component files (no API calls, fully static).
+| Route | Component |
+|---|---|
+| `/ai` | `src/pages/AiChat.jsx` |
+
+All data is hardcoded in component files (no API calls, fully static). `ScrollToTop` in `App.jsx` resets scroll position on every route change.
+
+## AI Chat (`/ai`)
+
+Runs LLMs entirely in-browser via WebLLM (`@mlc-ai/web-llm`) over WebGPU. Requires Chrome/Edge 113+. Three models: SmolLM2 1.7B, Llama 3.2 3B, Phi-3.5 Mini.
+
+- `src/workers/mlcWorker.js` — Web Worker hosting the MLC engine (inference off main thread)
+- `AiChat.jsx` spawns worker via `CreateWebWorkerMLCEngine`, streams via OpenAI-compatible API
+- File attachments injected into prompt as `<file name="...">` blocks
+- Full-screen layout with its own header — intentionally outside MainLayout
 
 ## Theme System
 
@@ -36,7 +52,7 @@ Theme-aware styles use CSS variables defined in `src/index.css`:
 - `:root` — dark mode values
 - `[data-theme="light"]` — light mode overrides
 
-Key variables: `--theme-bg`, `--theme-text`, `--theme-border`, `--theme-surface`, `--theme-nav-bg`, `--theme-footer-bg`.
+Key variables: `--theme-bg`, `--theme-text`, `--theme-text-muted`, `--theme-text-faint`, `--theme-border`, `--theme-border-hover`, `--theme-surface`, `--theme-nav-bg`, `--theme-footer-bg`.
 
 Use `style={{ color: 'var(--theme-text)' }}` pattern (not Tailwind dark: prefix) for theme-aware inline styles.
 

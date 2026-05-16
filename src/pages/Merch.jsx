@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 const FORM_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLSf8hnFXh3w1RKAxDOyLDTcB9bT85z28GopMyhRRzuqRn2CyEQ/viewform?embedded=true'
+  'https://docs.google.com/forms/d/e/1FAIpQLSf8hnFXh3w1RKAxDOyLDTcB9bT85z28GopMyhRRzuqRn2CyEQ/viewform?usp=dialog?embedded=true'
 
 
 export default function Merch() {
