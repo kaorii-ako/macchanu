@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vercel Build Error — Slide</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: #0a0a0f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  #scale-root {
+    width: 1920px;
+    height: 1080px;
+    position: relative;
+    transform-origin: top left;
+  }
+
+  .noise {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0;
+  }
+
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(214,183,71,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(214,183,71,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none; z-index: 0;
+  }
+
+  .blob { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+  .blob-gold { width: 600px; height: 600px; background: rgba(214,183,71,0.08); top: -150px; left: -100px; }
+  .blob-teal { width: 500px; height: 500px; background: rgba(25,117,126,0.08); bottom: -100px; right: 200px; }
+  .blob-red  { width: 400px; height: 400px; background: rgba(220,50,50,0.06); top: 200px; right: -80px; }
+
+  .slide {
+    position: relative; z-index: 1;
+    width: 100%; height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* LEFT */
+  .left {
+    padding: 90px 80px 90px 100px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    border-right: 1px solid rgba(214,183,71,0.12);
+  }
+
+  .tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 13px; letter-spacing: 0.2em; color: #d6b747;
+    font-weight: 500; text-transform: uppercase; margin-bottom: 28px;
+  }
+  .tag-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #ef4444; box-shadow: 0 0 12px rgba(239,68,68,0.8);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 96px; line-height: 0.9; letter-spacing: 0.02em; color: #fff; margin-bottom: 36px;
+  }
+  .title span { color: #d6b747; }
+
+  .subtitle {
+    font-size: 20px; color: rgba(255,255,255,0.45); font-weight: 300;
+    line-height: 1.5; max-width: 480px; margin-bottom: 56px;
+  }
+
+  .pills { display: flex; flex-direction: column; gap: 16px; }
+  .pill {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 20px 24px; border-radius: 12px; border: 1px solid;
+  }
+  .pill-cause { background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.2); }
+  .pill-fix   { background: rgba(34,197,94,0.06);  border-color: rgba(34,197,94,0.2); }
+  .pill-icon  { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .pill-label {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 6px;
+  }
+  .pill-cause .pill-label { color: #ef4444; }
+  .pill-fix   .pill-label { color: #22c55e; }
+  .pill-text  { font-size: 16px; color: rgba(255,255,255,0.75); line-height: 1.5; font-weight: 300; }
+
+  .left-footer {
+    display: flex; align-items: center; gap: 20px; margin-top: 56px;
+  }
+  .brand {
+    font-family: 'Bebas Neue', sans-serif; font-size: 22px;
+    letter-spacing: 0.12em; color: rgba(255,255,255,0.25);
+  }
+  .divider { width: 1px; height: 20px; background: rgba(255,255,255,0.12); }
+  .meta { font-size: 13px; color: rgba(255,255,255,0.2); }
+
+  /* RIGHT */
+  .right {
+    padding: 90px 100px 90px 80px;
+    display: flex; flex-direction: column; justify-content: center; gap: 32px;
+  }
+
+  .panel-label {
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); font-weight: 500;
+  }
+
+  .terminal {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 14px; overflow: hidden;
+  }
+  .terminal-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-r { background: #ef4444; }
+  .dot-y { background: #f59e0b; }
+  .dot-g { background: rgba(255,255,255,0.15); }
+  .terminal-title {
+    font-size: 12px; color: rgba(255,255,255,0.3);
+    font-family: 'SF Mono','Fira Code',monospace; margin-left: 4px; letter-spacing: 0.05em;
+  }
+  .terminal-body {
+    padding: 24px 28px;
+    font-family: 'SF Mono','Fira Code','Courier New',monospace;
+    font-size: 13.5px; line-height: 1.7;
+  }
+  .log-dim    { color: rgba(255,255,255,0.25); }
+  .log-normal { color: rgba(255,255,255,0.55); }
+  .log-ok     { color: #22c55e; }
+  .log-error  { color: #ef4444; font-weight: 600; }
+  .log-path   { color: #d6b747; }
+  .log-cmd    { color: #38bdf8; }
+  .gap        { height: 6px; }
+
+  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .step {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 22px;
+    background: rgba(214,183,71,0.04);
+    border: 1px solid rgba(214,183,71,0.12);
+    border-radius: 10px;
+  }
+  .step-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(214,183,71,0.15); border: 1px solid rgba(214,183,71,0.35);
+    color: #d6b747; font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .step-code {
+    font-family: 'SF Mono','Fira Code',monospace;
+    font-size: 14px; color: rgba(255,255,255,0.75);
+  }
+  .step-code em { color: #d6b747; font-style: normal; }
+</style>
+</head>
+<body>
+<div id="scale-root">
+  <div class="noise"></div>
+  <div class="grid"></div>
+  <div class="blob blob-gold"></div>
+  <div class="blob blob-teal"></div>
+  <div class="blob blob-red"></div>
+
+  <div class="slide">
+    <div class="left">
+      <div>
+        <div class="tag"><span class="tag-dot"></span> Vercel Deploy · Build Failure</div>
+        <h1 class="title">BUILD<br><span>FAILED</span><br>FIX</h1>
+        <p class="subtitle">AiChat.jsx existed on disk but was never committed — Vercel clones git, file wasn't there, Rollup choked.</p>
+      </div>
+      <div>
+        <div class="pills">
+          <div class="pill pill-cause">
+            <span class="pill-icon">⚠</span>
+            <div>
+              <div class="pill-label">Root Cause</div>
+              <div class="pill-text">
+                <code style="color:#ef4444">AiChat.jsx</code> + <code style="color:#ef4444">src/workers/</code>
+                were untracked. App.jsx imported them but the commit was missing the files.
+              </div>
+            </div>
+          </div>
+          <div class="pill pill-fix">
+            <span class="pill-icon">✓</span>
+            <div>
+              <div class="pill-label">Fix Applied</div>
+              <div class="pill-text">Files staged, committed, pushed to <code style="color:#22c55e">main</code>. Vercel redeploy will succeed.</div>
+            </div>
+          </div>
+        </div>
+        <div class="left-footer">
+          <span class="brand">MACCHANU RACING</span>
+          <div class="divider"></div>
+          <span class="meta">macchanu-racing@1.0.0 · Vite 5.4</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="panel-label">Error Log</div>
+
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <span class="terminal-title">vercel · build output</span>
+        </div>
+        <div class="terminal-body">
+          <div class="log-normal">Running <span class="log-cmd">npm run build</span></div>
+          <div class="gap"></div>
+          <div class="log-dim">&gt; macchanu-racing@1.0.0 build</div>
+          <div class="log-dim">&gt; vite build</div>
+          <div class="gap"></div>
+          <div class="log-dim">vite v5.4.21 building for production...</div>
+          <div class="log-ok">✓ 12 modules transformed.</div>
+          <div class="gap"></div>
+          <div class="log-error">✕ Build failed in 967ms</div>
+          <div class="gap"></div>
+          <div class="log-error">error during build:</div>
+          <div class="log-error">Could not resolve <span class="log-path">"./pages/AiChat"</span></div>
+          <div class="log-dim">&nbsp;&nbsp;from <span class="log-path">src/App.jsx</span></div>
+          <div class="gap"></div>
+          <div class="log-dim">&nbsp;&nbsp;&nbsp;&nbsp;at getRollupError (...parseAst.js:406)</div>
+          <div class="log-dim">&nbsp;&nbsp;&nbsp;&nbsp;at ModuleLoader.handleInvalidResolvedId</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel-label" style="margin-bottom:14px">Fix Commands</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-code">git add <em>src/pages/AiChat.jsx src/workers/</em></div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-code">git commit -m <em>"feat: add AiChat and mlcWorker"</em></div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-code">git push origin <em>main</em>&nbsp; → Vercel redeploys ✓</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function scale() {
+    const root = document.getElementById('scale-root');
+    const sw = window.innerWidth, sh = window.innerHeight;
+    const s = Math.min(sw / 1920, sh / 1080);
+    root.style.transform = `scale(${s})`;
+    root.style.marginLeft = ((sw - 1920 * s) / 2) + 'px';
+    root.style.marginTop  = ((sh - 1080 * s) / 2) + 'px';
+    document.body.style.width  = sw + 'px';
+    document.body.style.height = sh + 'px';
+  }
+  scale();
+  window.addEventListener('resize', scale);
+</script>
+</body>
+</html>

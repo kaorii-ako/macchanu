@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Macchanu Racing · 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold: #d6b747; --teal: #19757e; --bg: #0a0a0f;
+  --muted: rgba(255,255,255,0.55); --faint: rgba(255,255,255,0.28);
+  --border: rgba(255,255,255,0.08); --card: rgba(255,255,255,0.04);
+  --disp: 'Bebas Neue', sans-serif; --body: 'Space Grotesk', sans-serif;
+}
+
+html, body { background:#000; overflow:hidden; width:100vw; height:100vh; }
+
+#deck {
+  position:absolute; width:1920px; height:1080px;
+  transform-origin:top left; background:var(--bg); font-family:var(--body);
+}
+#deck::before {
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(214,183,71,0.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(214,183,71,0.035) 1px,transparent 1px);
+  background-size:80px 80px;
+}
+
+.slide { position:absolute; inset:0; z-index:1; opacity:0; pointer-events:none; transition:opacity 0.45s ease; overflow:hidden; }
+.slide.active { opacity:1; pointer-events:all; }
+
+.tag { font-family:var(--body); font-size:13px; letter-spacing:0.22em; text-transform:uppercase; font-weight:500; }
+.gold { color:var(--gold); } .teal { color:var(--teal); }
+.muted { color:var(--muted); } .faint { color:var(--faint); }
+h1,h2,h3,.disp { font-family:var(--disp); letter-spacing:0.02em; line-height:0.92; }
+.card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; }
+
+.blob { position:absolute; border-radius:50%; filter:blur(130px); pointer-events:none; }
+.dot-pulse { width:8px; height:8px; border-radius:50%; animation:pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── Nav ── */
+#nav {
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
+  display:flex; align-items:center; gap:20px; z-index:999;
+  background:rgba(10,10,15,0.85); border:1px solid rgba(255,255,255,0.1);
+  border-radius:999px; padding:10px 24px; backdrop-filter:blur(12px);
+}
+#nav button { background:none; border:none; color:rgba(255,255,255,0.5); font-size:18px; cursor:pointer; transition:color 0.2s; padding:2px 6px; }
+#nav button:hover { color:var(--gold); }
+#counter { color:rgba(255,255,255,0.4); font-family:var(--body); font-size:13px; letter-spacing:0.1em; min-width:48px; text-align:center; }
+#progress { position:fixed; top:0; left:0; height:2px; background:var(--gold); transition:width 0.4s ease; z-index:999; }
+
+/* ── S1 HERO ── */
+#s1 .b1{width:800px;height:800px;background:rgba(214,183,71,0.06);top:-200px;left:-150px;}
+#s1 .b2{width:700px;height:700px;background:rgba(25,117,126,0.07);bottom:-150px;right:-50px;}
+#s1 .logo-ring{width:160px;height:160px;border-radius:50%;padding:2px;margin-bottom:36px;background:linear-gradient(135deg,rgba(214,183,71,0.8),rgba(25,117,126,0.5),rgba(214,183,71,0.3));box-shadow:0 0 60px rgba(214,183,71,0.15),0 0 120px rgba(214,183,71,0.06);}
+#s1 .logo-ring img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+#s1 h1{font-size:210px;line-height:0.85;margin-bottom:20px;}
+#s1 .sub{font-family:var(--body);font-size:20px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(214,183,71,0.75);margin-bottom:12px;}
+#s1 .mini{font-family:var(--body);font-size:15px;color:var(--faint);letter-spacing:0.12em;margin-bottom:40px;}
+#s1 .date-b{display:inline-flex;align-items:center;gap:10px;padding:10px 24px;border-radius:999px;background:rgba(214,183,71,0.08);border:1px solid rgba(214,183,71,0.25);}
+
+/* ── S2 NAME ── */
+.split{display:grid;grid-template-columns:1fr 1fr;height:100%;}
+#s2 .lp{padding:90px 80px 90px 100px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border);}
+#s2 .rp{display:flex;align-items:center;justify-content:center;padding:60px;}
+#s2 .rp img{width:100%;max-height:420px;object-fit:cover;border-radius:20px;opacity:0.85;border:1px solid rgba(214,183,71,0.15);}
+#s2 h2{font-size:100px;margin-bottom:28px;}
+#s2 .quote{font-family:var(--body);font-size:20px;font-style:italic;font-weight:300;color:rgba(255,255,255,0.7);border-left:3px solid var(--gold);padding-left:24px;line-height:1.55;margin-bottom:36px;}
+#s2 .chips{display:flex;gap:16px;margin-top:24px;}
+#s2 .chip{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);}
+#s2 .swatch{width:28px;height:28px;border-radius:8px;}
+
+/* ── S3 TEAM ── */
+#s3{display:flex;flex-direction:column;}
+#s3 .hdr{padding:70px 100px 28px;}
+#s3 h2{font-size:90px;}
+#s3 .grid3{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;padding:0 100px 60px;flex:1;}
+#s3 .mem{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 18px;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+#s3 .stripe{position:absolute;top:0;left:0;right:0;height:3px;}
+#s3 .av{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:26px;color:#0a0a0f;margin-bottom:14px;}
+#s3 .m-role{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:4px;}
+#s3 .m-nick{font-family:var(--disp);font-size:26px;color:#fff;line-height:1;margin-bottom:3px;}
+#s3 .m-name{font-size:10px;color:var(--faint);margin-bottom:10px;}
+#s3 .m-desc{font-size:12px;line-height:1.5;color:var(--muted);}
+
+/* ── S4 RUSL ── */
+#s4{display:flex;flex-direction:column;padding:80px 100px;}
+#s4 h2{font-size:100px;margin-bottom:48px;}
+#s4 .rusl{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;flex:1;}
+#s4 .rc{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px 28px;display:flex;flex-direction:column;}
+#s4 .rl{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:32px;color:#0a0a0f;margin-bottom:20px;}
+#s4 .rt{font-family:var(--disp);font-size:40px;margin-bottom:12px;}
+#s4 .rb{font-size:15px;line-height:1.6;color:var(--muted);}
+
+/* ── S5 COMPETITION ── */
+#s5 .lp{padding:90px 80px 90px 100px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border);}
+#s5 .rp{padding:80px;display:flex;flex-direction:column;justify-content:center;gap:20px;}
+#s5 h2{font-size:100px;margin-bottom:24px;}
+#s5 .bt{font-size:18px;line-height:1.65;color:var(--muted);margin-bottom:32px;max-width:560px;}
+#s5 .stats5{display:flex;gap:32px;}
+#s5 .sn{font-family:var(--disp);font-size:72px;line-height:1;}
+#s5 .sl{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-top:4px;}
+#s5 .pc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;}
+#s5 .ps{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+#s5 .ps:last-child{border-bottom:none;}
+#s5 .pd{width:10px;height:10px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+#s5 .pl{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;}
+#s5 .px{font-size:15px;color:var(--muted);}
+
+/* ── S6 TIMELINE ── */
+#s6{display:flex;flex-direction:column;padding:80px 100px;}
+#s6 h2{font-size:100px;margin-bottom:36px;}
+#s6 .tw{flex:1;display:flex;align-items:center;}
+#s6 .tl{display:flex;align-items:flex-start;gap:0;width:100%;position:relative;}
+#s6 .tl::before{content:'';position:absolute;top:28px;left:40px;right:40px;height:2px;background:linear-gradient(90deg,rgba(25,117,126,0.3),var(--gold),rgba(25,117,126,0.3));}
+#s6 .ts{flex:1;display:flex;flex-direction:column;align-items:center;padding:0 14px;}
+#s6 .tn{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:20px;margin-bottom:24px;position:relative;z-index:1;border:2px solid;}
+#s6 .done{background:rgba(25,117,126,0.15);border-color:var(--teal);color:var(--teal);}
+#s6 .here{background:rgba(214,183,71,0.15);border-color:var(--gold);color:var(--gold);box-shadow:0 0 24px rgba(214,183,71,0.25);}
+#s6 .next{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.4);}
+#s6 .ty{font-size:12px;letter-spacing:0.15em;color:var(--faint);margin-bottom:8px;text-align:center;}
+#s6 .tt{font-family:var(--disp);font-size:24px;color:#fff;margin-bottom:8px;text-align:center;line-height:1.1;}
+#s6 .tb{font-size:13px;color:var(--muted);line-height:1.5;text-align:center;max-width:175px;}
+#s6 .lb{margin-top:36px;padding:16px 32px;border-radius:12px;text-align:center;background:rgba(214,183,71,0.05);border:1px solid rgba(214,183,71,0.2);font-size:15px;color:rgba(214,183,71,0.7);letter-spacing:0.06em;}
+
+/* ── S7 ENGINEERING ── */
+#s7 .lp{padding:80px 80px 80px 100px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border);}
+#s7 .rp{padding:80px;display:flex;flex-direction:column;justify-content:center;gap:18px;}
+#s7 h2{font-size:88px;margin-bottom:24px;}
+#s7 .eb{font-size:17px;line-height:1.65;color:var(--muted);margin-bottom:32px;max-width:560px;}
+#s7 .specs7{display:flex;gap:32px;margin-bottom:36px;}
+#s7 .sn7{font-family:var(--disp);font-size:60px;line-height:1;}
+#s7 .sl7{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);}
+#s7 .ec{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;}
+#s7 .el{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:6px;}
+#s7 .et{font-family:var(--disp);font-size:24px;margin-bottom:6px;color:#fff;}
+#s7 .es{font-size:14px;color:var(--muted);}
+#s7 .pip{display:flex;gap:8px;margin-top:24px;}
+#s7 .pp{flex:1;text-align:center;padding:14px 10px;border-radius:10px;background:var(--card);border:1px solid var(--border);font-family:var(--disp);font-size:22px;}
+
+/* ── S8 DIGITAL ── */
+#s8{display:flex;flex-direction:column;padding:80px 100px;}
+#s8 h2{font-size:100px;margin-bottom:12px;}
+#s8 .sb{font-size:17px;color:var(--muted);margin-bottom:44px;max-width:700px;line-height:1.5;}
+#s8 .g8{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;flex:1;}
+#s8 .g8c{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;display:flex;flex-direction:column;}
+#s8 .g8l{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;}
+#s8 .g8t{font-family:var(--disp);font-size:32px;margin-bottom:10px;color:#fff;line-height:1;}
+#s8 .g8b{font-size:14px;color:var(--muted);line-height:1.55;}
+#s8 .rts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+#s8 .rp{padding:4px 12px;border-radius:6px;font-size:12px;font-family:monospace;background:rgba(214,183,71,0.08);border:1px solid rgba(214,183,71,0.2);color:var(--gold);}
+
+/* ── S9 SPONSORS ── */
+#s9{display:flex;flex-direction:column;padding:80px 100px;}
+#s9 h2{font-size:100px;margin-bottom:12px;}
+#s9 .sb9{font-size:17px;color:var(--muted);margin-bottom:44px;}
+#s9 .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:36px;}
+#s9 .sc{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;}
+#s9 .sl9{max-width:140px;max-height:70px;object-fit:contain;filter:brightness(1.1);}
+#s9 .st{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:2px;}
+#s9 .sa{font-family:var(--disp);font-size:32px;}
+#s9 .plab{display:flex;justify-content:space-between;font-size:14px;color:var(--faint);margin-bottom:10px;}
+#s9 .ptr{height:8px;border-radius:999px;background:rgba(255,255,255,0.08);overflow:hidden;}
+#s9 .pfl{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--teal),var(--gold));}
+
+/* ── S10 TIERS ── */
+#s10{display:flex;flex-direction:column;padding:80px 100px;}
+#s10 h2{font-size:100px;margin-bottom:12px;}
+#s10 .sb10{font-size:17px;color:var(--muted);margin-bottom:36px;}
+#s10 .trs{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;flex:1;}
+#s10 .tr{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px 24px;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+#s10 .trt{height:3px;position:absolute;top:0;left:0;right:0;}
+#s10 .trn{font-family:var(--disp);font-size:18px;color:var(--faint);margin-bottom:12px;}
+#s10 .trname{font-family:var(--disp);font-size:48px;margin-bottom:4px;}
+#s10 .tram{font-size:14px;letter-spacing:0.08em;color:var(--muted);margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+#s10 .trf{flex:1;display:flex;flex-direction:column;gap:10px;}
+#s10 .ft{font-size:13px;color:var(--muted);line-height:1.4;padding-left:14px;position:relative;}
+#s10 .ft::before{content:'—';position:absolute;left:0;color:var(--faint);}
+
+/* ── S11 JAPAN ── */
+#s11{position:relative;}
+#s11 .bgi{position:absolute;inset:0;z-index:0;object-fit:cover;width:100%;height:100%;filter:saturate(0.4) brightness(0.2);}
+#s11 .bgg{position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(10,10,15,0.88) 0%,rgba(10,10,15,0.6) 100%);}
+#s11 .cnt{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;padding:80px 100px;height:100%;}
+#s11 .cx{text-align:center;max-width:1000px;}
+#s11 .bp{display:inline-flex;align-items:center;gap:10px;padding:8px 24px;border-radius:999px;margin-bottom:32px;background:rgba(37,116,167,0.15);border:1px solid rgba(37,116,167,0.35);font-size:13px;letter-spacing:0.2em;color:#4db3e8;}
+#s11 h2{font-size:130px;margin-bottom:14px;}
+#s11 .dl{font-family:var(--disp);font-size:36px;color:var(--gold);letter-spacing:0.15em;margin-bottom:30px;}
+#s11 .b11{font-size:20px;line-height:1.65;color:var(--muted);max-width:680px;margin:0 auto 44px;}
+#s11 .db{display:inline-flex;align-items:center;gap:16px;padding:20px 40px;border-radius:16px;background:rgba(214,183,71,0.08);border:1px solid rgba(214,183,71,0.25);}
+
+/* ── S12 JOIN ── */
+#s12 .b1{width:900px;height:900px;background:rgba(214,183,71,0.055);top:-250px;right:-200px;}
+#s12 .b2{width:600px;height:600px;background:rgba(25,117,126,0.07);bottom:-100px;left:-100px;}
+#s12 .cnt12{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;padding:80px 100px;height:100%;}
+#s12 .cx12{text-align:center;max-width:1100px;}
+#s12 h2{font-size:140px;margin-bottom:20px;}
+#s12 .tg{font-size:22px;color:var(--muted);line-height:1.6;max-width:680px;margin:0 auto 48px;}
+#s12 .cr{display:flex;justify-content:center;gap:28px;margin-bottom:44px;flex-wrap:wrap;}
+#s12 .cc{padding:20px 32px;border-radius:14px;background:var(--card);border:1px solid var(--border);}
+#s12 .clb{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:6px;}
+#s12 .cv{font-size:16px;color:#fff;}
+#s12 .cl{font-family:var(--disp);font-size:22px;letter-spacing:0.1em;color:rgba(214,183,71,0.35);}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="deck">
+
+<!-- S01 · HERO -->
+<section class="slide" id="s1">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div style="position:relative;z-index:2;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+    <div class="logo-ring">
+      <img src="public/IMG1.PNG" alt="Macchanu Racing">
+    </div>
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:999px;background:rgba(214,183,71,0.08);border:1px solid rgba(214,183,71,0.22);margin-bottom:22px;font-family:var(--body);font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);">
+      <span class="dot-pulse" style="background:var(--gold)"></span>
+      F1 IN SCHOOLS · WORLD FINALS 2026
+    </div>
+    <h1><span style="color:#fff">MAC</span><span class="gold">CHANU</span></h1>
+    <p class="sub">Racing by Motion</p>
+    <p class="mini">Six students · Amnuay Silpa School, Thailand</p>
+    <div class="date-b">
+      <span class="dot-pulse" style="background:var(--gold)"></span>
+      <span class="gold" style="font-size:15px;letter-spacing:0.18em;">JUNE 14 · JAPAN 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- S02 · WHY MACCHANU -->
+<section class="slide split" id="s2">
+  <div class="lp">
+    <p class="tag gold" style="margin-bottom:20px;">Our Identity</p>
+    <h2>WHY<br><span class="gold">MACCHANU?</span></h2>
+    <p class="quote">Macchanu is the son of Hanuman — a figure of strength, unwavering dedication, and grace in Thai culture. A hybrid creature: part monkey, part fish.</p>
+    <p style="font-size:17px;line-height:1.65;color:var(--muted);margin-bottom:28px;">We chose the fish as our logo identity, representing fluidity. Our teal and gold palette communicates calm yet bold presence — subtle in tone, impactful in identity.</p>
+    <p style="font-family:var(--disp);font-size:26px;letter-spacing:0.05em;color:var(--faint);">Mythological strength × Hydrodynamic innovation</p>
+    <div class="chips">
+      <div class="chip"><div class="swatch" style="background:#d6b747"></div> Gold #d6b747 — Bold presence</div>
+      <div class="chip"><div class="swatch" style="background:#19757e"></div> Teal #19757e — Fluid precision</div>
+    </div>
+  </div>
+  <div class="rp">
+    <img src="public/IMG1.PNG" alt="Macchanu">
+  </div>
+</section>
+
+<!-- S03 · THE TEAM -->
+<section class="slide" id="s3">
+  <div class="hdr">
+    <p class="tag gold" style="margin-bottom:10px;">The Machine</p>
+    <h2>MEET THE <span class="gold">MAKERS</span></h2>
+  </div>
+  <div class="grid3">
+    <div class="mem"><div class="stripe" style="background:linear-gradient(90deg,#d6b747,#e8c95a)"></div><div class="av" style="background:linear-gradient(135deg,#d6b747,#e8c95a)">N</div><div class="m-role">Team Manager</div><div class="m-nick">NEENA</div><div class="m-name">Chalisa Nitayavardhana</div><div class="m-desc">Coordinates the team, ensures collaboration and all requirements are met to the highest standard.</div></div>
+    <div class="mem"><div class="stripe" style="background:linear-gradient(90deg,#19757e,#2ba7b3)"></div><div class="av" style="background:linear-gradient(135deg,#19757e,#2ba7b3)">S</div><div class="m-role">Lead Engineer</div><div class="m-nick">SKY</div><div class="m-name">Tasschol Laoarakpibul</div><div class="m-desc">Manufacturing, designing, supervising engineers. Brainstorms ideas and helps the team deliver on time.</div></div>
+    <div class="mem"><div class="stripe" style="background:linear-gradient(90deg,#2ba7b3,#d6b747)"></div><div class="av" style="background:linear-gradient(135deg,#2ba7b3,#d6b747)">P</div><div class="m-role">Manufacturing Engineer</div><div class="m-nick">PEP</div><div class="m-name">Paphakorn Pongvitayapanu</div><div class="m-desc">Designs sub-components: wheel support and aerodynamic parts. Also designs the pit display.</div></div>
+    <div class="mem"><div class="stripe" style="background:linear-gradient(90deg,#d6b747,#19757e)"></div><div class="av" style="background:linear-gradient(135deg,#d6b747,#19757e)">C</div><div class="m-role">Design Engineer</div><div class="m-nick">COPTER</div><div class="m-name">Anantawat Kulthaveesup</div><div class="m-desc">Develops car design for better performance. Creates CAD models and ensures structural integrity.</div></div>
+    <div class="mem"><div class="stripe" style="background:linear-gradient(90deg,#e8c95a,#2ba7b3)"></div><div class="av" style="background:linear-gradient(135deg,#e8c95a,#2ba7b3)">P</div><div class="m-role">Graphic Designer</div><div class="m-nick">PIMMY</div><div class="m-name">Pimyada Lertbutsayanukul</div><div class="m-desc">Oversees all visuals — logo, posters, promotional materials — ensuring cohesion with team identity.</div></div>
+    <div class="mem"><div class="stripe" style="background:linear-gradient(90deg,#19757e,#e8c95a)"></div><div class="av" style="background:linear-gradient(135deg,#19757e,#e8c95a)">K</div><div class="m-role">Analytical Engineer</div><div class="m-nick">KAO</div><div class="m-name">Tawin Tangsukson</div><div class="m-desc">CFD aerodynamics analysis and team website design + development. Ensures digital presence.</div></div>
+  </div>
+</section>
+
+<!-- S04 · MISSION RUSL -->
+<section class="slide" id="s4">
+  <div style="padding:80px 100px;display:flex;flex-direction:column;width:100%;height:100%;">
+    <div style="margin-bottom:48px;"><p class="tag teal" style="margin-bottom:12px;">Our Mission</p><h2>WHY WE <span class="gold">COMPETE</span></h2></div>
+    <div class="rusl">
+      <div class="rc"><div class="rl" style="background:linear-gradient(135deg,#c0392b,#d6b747)">R</div><div class="rt gold">REPRESENT</div><p class="rb">Represent Amnuay Silpa and Thailand — bring honor and recognition to our school and culture on the world stage.</p></div>
+      <div class="rc"><div class="rl" style="background:linear-gradient(135deg,#19757e,#2ba7b3)">U</div><div class="rt teal">UNDERSTAND</div><p class="rb">After Thailand Nationals 2025, we gained deep understanding of how serious this competition truly is at the global level.</p></div>
+      <div class="rc"><div class="rl" style="background:linear-gradient(135deg,#d6b747,#e8c95a)">S</div><div class="rt gold">SUCCEED</div><p class="rb">Win prizes and make the team proud. Our eyes are set on the Thailand Nationals podium and Japan World Finals.</p></div>
+      <div class="rc"><div class="rl" style="background:linear-gradient(135deg,#19757e,#d6b747)">L</div><div class="rt" style="color:#fff">LEGACY</div><p class="rb">We are the first school in Asia to join F1 in Schools since 2018. Continue the legacy — be a legacy in motion.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- S05 · THE COMPETITION -->
+<section class="slide split" id="s5">
+  <div class="lp">
+    <p class="tag gold" style="margin-bottom:20px;">The Competition</p>
+    <h2>F1 IN<br><span class="gold">SCHOOLS</span></h2>
+    <p class="bt">Teams of students use professional CAD/CAM to design, manufacture, and race miniature F1 cars — judged on engineering, marketing, and teamwork across 40+ countries.</p>
+    <div class="stats5">
+      <div><div class="sn teal">6</div><div class="sl">Students</div></div>
+      <div style="width:1px;background:var(--border)"></div>
+      <div><div class="sn gold">12</div><div class="sl">Subsystems</div></div>
+      <div style="width:1px;background:var(--border)"></div>
+      <div><div class="sn" style="color:#fff">200+</div><div class="sl">Design Reviews</div></div>
+    </div>
+  </div>
+  <div class="rp">
+    <p class="tag teal" style="margin-bottom:24px;">Our Path</p>
+    <div class="pc">
+      <div class="ps"><div class="pd" style="background:var(--teal)"></div><div><div class="pl teal">2018</div><div class="px">Amnuay Silpa becomes the <strong style="color:#fff">first school in Asia</strong> to join F1 in Schools</div></div></div>
+      <div class="ps"><div class="pd" style="background:var(--teal)"></div><div><div class="pl teal">2025 · Thailand Nationals</div><div class="px">Macchanu Racing competes — gains real competition experience at national level</div></div></div>
+      <div class="ps"><div class="pd" style="background:var(--gold)"></div><div><div class="pl gold">2025 · Qualified</div><div class="px">Team qualifies for <strong style="color:var(--gold)">Japan World Finals</strong> — one of few teams from Southeast Asia</div></div></div>
+      <div class="ps"><div class="pd" style="background:rgba(255,255,255,0.3)"></div><div><div class="pl faint">June 14, 2026</div><div class="px faint">Japan World Finals — the stage we've been building toward</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- S06 · TIMELINE -->
+<section class="slide" id="s6">
+  <div style="padding:80px 100px;display:flex;flex-direction:column;width:100%;height:100%;">
+    <div style="margin-bottom:32px;"><p class="tag gold" style="margin-bottom:12px;">The Journey</p><h2>HOW WE GOT <span class="gold">HERE</span></h2></div>
+    <div class="tw">
+      <div class="tl">
+        <div class="ts"><div class="tn done">18</div><div class="ty">2018</div><div class="tt">FIRST IN ASIA</div><div class="tb">Amnuay Silpa joins F1 in Schools — a pioneer in Southeast Asia</div></div>
+        <div class="ts"><div class="tn done" style="font-size:16px;">◀</div><div class="ty">2024</div><div class="tt">TEAM FORMS</div><div class="tb">Macchanu Racing assembled. Name chosen. Identity designed. Mission set.</div></div>
+        <div class="ts"><div class="tn done">TH</div><div class="ty">2025 Nationals</div><div class="tt">THAILAND NATIONALS</div><div class="tb">First real competition. 200+ design reviews. 12 subsystems engineered in-house.</div></div>
+        <div class="ts"><div class="tn here">✓</div><div class="ty" style="color:var(--gold)">2025 · NOW</div><div class="tt gold">QUALIFIED</div><div class="tb">Qualified for World Finals. Website live. Sponsors onboard. Car refined.</div></div>
+        <div class="ts"><div class="tn next">JP</div><div class="ty">June 14, 2026</div><div class="tt">WORLD FINALS</div><div class="tb">Japan. 40+ countries. One race. The culmination of everything built.</div></div>
+      </div>
+    </div>
+    <div class="lb">"We don't just race. We innovate." — built entirely from scratch, by six students from Thailand.</div>
+  </div>
+</section>
+
+<!-- S07 · ENGINEERING -->
+<section class="slide split" id="s7">
+  <div class="lp">
+    <p class="tag teal" style="margin-bottom:20px;">Engineering Excellence</p>
+    <h2>PRECISION<br>IN EVERY<br><span class="gold">DETAIL.</span></h2>
+    <p class="eb">Every component — aerodynamics, structure, manufacturing — designed and engineered entirely in-house using professional-grade tools.</p>
+    <div class="specs7">
+      <div><div class="sn7 gold">0.005</div><div class="sl7">mm Tolerance</div></div>
+      <div style="width:1px;background:var(--border)"></div>
+      <div><div class="sn7 teal">±0.01</div><div class="sl7">mm Accuracy</div></div>
+      <div style="width:1px;background:var(--border)"></div>
+      <div><div class="sn7" style="color:#fff">12</div><div class="sl7">Subsystems</div></div>
+    </div>
+    <div class="pip">
+      <div class="pp gold">CAD</div>
+      <div style="display:flex;align-items:center;color:var(--faint);font-size:20px;">→</div>
+      <div class="pp teal">CFD</div>
+      <div style="display:flex;align-items:center;color:var(--faint);font-size:20px;">→</div>
+      <div class="pp" style="color:#fff">CNC</div>
+      <div style="display:flex;align-items:center;color:var(--faint);font-size:20px;">→</div>
+      <div class="pp muted">RACE</div>
+    </div>
+  </div>
+  <div class="rp">
+    <p class="tag gold" style="margin-bottom:22px;">Key Components</p>
+    <div class="ec"><div class="el gold">Rear Wing Aligner</div><div class="et">AERODYNAMIC PRECISION</div><div class="es">3D printed · <strong style="color:var(--gold)">0.005 mm</strong> manufacturing tolerance · Optimized downforce geometry</div></div>
+    <div class="ec" style="margin-top:16px;"><div class="el teal">Wheel System</div><div class="et">2-DIVOT DESIGN</div><div class="es">CNC milled · <strong style="color:var(--teal)">±0.01 mm</strong> accuracy · Minimized rotational friction</div></div>
+    <div class="ec" style="margin-top:16px;"><div class="el muted">Computational Fluid Dynamics</div><div class="et">CFD VALIDATED</div><div class="es">Full aerodynamic simulation · Drag coefficient optimized · Validated in-house</div></div>
+  </div>
+</section>
+
+<!-- S08 · DIGITAL BUILD -->
+<section class="slide" id="s8">
+  <div style="padding:80px 100px;display:flex;flex-direction:column;width:100%;height:100%;">
+    <div><p class="tag teal" style="margin-bottom:12px;">Digital Presence</p><h2>BUILT <span class="gold">IN-HOUSE</span></h2><p class="sb">Website designed, developed, and deployed by Kao (Analytical Engineer) — a full production SPA using modern web technology.</p></div>
+    <div class="g8">
+      <div class="g8c"><div class="g8l gold">Stack</div><div class="g8t">REACT 18 + VITE</div><p class="g8b">React Router v6 SPA with Framer Motion animations, custom Tailwind design system, deployed on Vercel with automatic CI/CD.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;"><span style="padding:4px 10px;border-radius:6px;font-size:11px;background:rgba(25,117,126,0.1);border:1px solid rgba(25,117,126,0.25);color:var(--teal)">React 18</span><span style="padding:4px 10px;border-radius:6px;font-size:11px;background:rgba(25,117,126,0.1);border:1px solid rgba(25,117,126,0.25);color:var(--teal)">Vite 5</span><span style="padding:4px 10px;border-radius:6px;font-size:11px;background:rgba(25,117,126,0.1);border:1px solid rgba(25,117,126,0.25);color:var(--teal)">Framer Motion</span></div></div>
+      <div class="g8c"><div class="g8l teal">Routes</div><div class="g8t">7 PAGES</div><p class="g8b">Complete team presence — home, team profiles, engineering details, sponsorship, merch, and a browser-native AI assistant.</p><div class="rts"><span class="rp">/</span><span class="rp">/team</span><span class="rp">/engineering</span><span class="rp">/sponsorship</span><span class="rp">/merch</span><span class="rp">/ai</span></div></div>
+      <div class="g8c" style="border-color:rgba(214,183,71,0.2);background:rgba(214,183,71,0.04);"><div class="g8l gold">AI Feature</div><div class="g8t">IN-BROWSER LLM</div><p class="g8b">The <code style="color:var(--gold);font-size:12px">/ai</code> route runs language models entirely in the visitor's browser via WebLLM + WebGPU — no server, fully private. Supports SmolLM2, Llama 3.2, and Phi-3.5 Mini.</p><div style="margin-top:12px;font-size:12px;color:rgba(214,183,71,0.6);letter-spacing:0.04em;">No cloud · No cost · Runs in Chrome 113+</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- S09 · SPONSORS -->
+<section class="slide" id="s9">
+  <div style="padding:80px 100px;display:flex;flex-direction:column;width:100%;height:100%;">
+    <div style="margin-bottom:36px;"><p class="tag gold" style="margin-bottom:12px;">Partners</p><h2>OUR <span class="gold">SPONSORS</span></h2><p class="sb9">Visionary partners investing in Thailand's next generation of engineers.</p></div>
+    <div class="sg">
+      <div class="sc" style="border-color:rgba(214,183,71,0.25);background:rgba(214,183,71,0.05);"><img class="sl9" src="public/ANS.png" alt="Amnuaysilpa"><div><div class="st gold">Jasmine Tier</div><div class="sa gold">฿ 150,000</div></div><div style="font-size:12px;color:var(--faint)">Amnuaysilpa School</div></div>
+      <div class="sc" style="border-color:rgba(25,117,126,0.25);background:rgba(25,117,126,0.05);"><img class="sl9" src="public/PC.webp" alt="PC"><div><div class="st teal">Orchid Tier</div><div class="sa teal">฿ 60,000</div></div><div style="font-size:12px;color:var(--faint)">ประชาชื่นอิมเมจจิ้งเซ็นเตอร์</div></div>
+      <div class="sc" style="border-color:rgba(25,117,126,0.2);"><img class="sl9" src="public/PTT.png" alt="PTTEP"><div><div class="st teal">Orchid Tier</div><div class="sa teal">฿ 25,000</div></div><div style="font-size:12px;color:var(--faint)">PTTEP</div></div>
+      <div class="sc"><img class="sl9" src="public/FF.png" alt="FF"><div><div class="st muted">Lily Tier</div><div class="sa" style="color:#fff">฿ 5,000</div></div><div style="font-size:12px;color:var(--faint)">FF</div></div>
+    </div>
+    <div>
+      <div class="plab"><span>Raised: <strong style="color:#fff">฿ 240,000</strong></span><span>Goal: ฿ 575,000</span></div>
+      <div class="ptr"><div class="pfl" style="width:41.7%"></div></div>
+      <div style="font-family:var(--disp);font-size:18px;color:var(--gold);margin-top:8px;">41.7% funded <span style="color:var(--faint);font-family:var(--body);font-size:14px;font-weight:300;margin-left:12px;">— ฿ 335,000 remaining to World Finals goal</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- S10 · TIERS -->
+<section class="slide" id="s10">
+  <div style="padding:80px 100px;display:flex;flex-direction:column;width:100%;height:100%;">
+    <div style="margin-bottom:32px;"><p class="tag teal" style="margin-bottom:12px;">Partnership Tiers</p><h2>INVEST IN <span class="gold">THE FUTURE</span></h2><p class="sb10">Four ways to partner with Macchanu Racing — every tier earns prominent recognition at nationals and world finals.</p></div>
+    <div class="trs">
+      <div class="tr"><div class="trt" style="background:linear-gradient(90deg,#2ba7b3,#19757e)"></div><div class="trn">01</div><div class="trname teal">LILY</div><div class="tram">฿ 5,000</div><div class="trf"><div class="ft">Website & social media acknowledgement</div><div class="ft">Logo on team uniforms</div><div class="ft">Logo on portfolios</div></div></div>
+      <div class="tr"><div class="trt" style="background:linear-gradient(90deg,#19757e,#d6b747)"></div><div class="trn">02</div><div class="trname" style="color:#2ba7b3">ORCHID</div><div class="tram">฿ 25,000</div><div class="trf"><div class="ft">All Lily benefits</div><div class="ft">More prominent uniform logo</div><div class="ft">More prominent portfolio logo</div></div></div>
+      <div class="tr" style="border-color:rgba(214,183,71,0.2);background:rgba(214,183,71,0.04);"><div class="trt" style="background:linear-gradient(90deg,#d6b747,#e8c95a)"></div><div class="trn gold">03</div><div class="trname gold">JASMINE</div><div class="tram" style="color:rgba(214,183,71,0.7)">฿ 100,000</div><div class="trf"><div class="ft">All Orchid benefits</div><div class="ft">Logo on the team car</div><div class="ft">Prominent uniform & portfolio</div><div class="ft">Coordinated social promotion</div></div></div>
+      <div class="tr" style="border-color:rgba(240,209,92,0.25);background:rgba(240,209,92,0.05);"><div class="trt" style="background:linear-gradient(90deg,#c9a020,#e8c95a)"></div><div class="trn" style="color:#e8c95a">04</div><div class="trname" style="color:#e8c95a">LOTUS</div><div class="tram" style="color:rgba(232,201,90,0.7)">฿ 200,000 – 300,000</div><div class="trf"><div class="ft">All Jasmine benefits</div><div class="ft">Most prominent on everything</div><div class="ft">Business cards at event</div><div class="ft">Negotiated promo goods</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- S11 · JAPAN 2026 -->
+<section class="slide" id="s11">
+  <img class="bgi" src="public/IMG3.JPG" alt="">
+  <div class="bgg"></div>
+  <div class="cnt">
+    <div class="cx">
+      <div class="bp"><span class="dot-pulse" style="background:#4db3e8"></span>F1 IN SCHOOLS · WORLD FINALS</div>
+      <h2>JAPAN<br><span class="gold">2026</span></h2>
+      <div class="dl">JUNE 14 · JAPAN</div>
+      <p class="b11">Teams from 40+ countries compete on the world stage. Six students from Thailand. One car. One chance to make history.</p>
+      <div class="db">
+        <span class="dot-pulse" style="background:var(--gold)"></span>
+        <span style="font-family:var(--disp);font-size:28px;letter-spacing:0.15em;color:var(--gold)">COMPETITION DAY: 14 JUNE 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S12 · JOIN US -->
+<section class="slide" id="s12">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="cnt12">
+    <div class="cx12">
+      <p class="tag gold" style="margin-bottom:22px;letter-spacing:0.25em;">Join Our Journey</p>
+      <h2>HELP US RACE<br><span class="gold">THE WORLD.</span></h2>
+      <p class="tg">Six Thai students. One stage. Your support makes the difference between competing and winning.</p>
+      <div class="cr">
+        <div class="cc"><div class="clb">Email</div><div class="cv">matchanu.racing@gmail.com</div></div>
+        <div class="cc"><div class="clb">Website</div><div class="cv">macchanu.vercel.app</div></div>
+        <div class="cc"><div class="clb">School</div><div class="cv">Amnuay Silpa School, Thailand</div></div>
+      </div>
+      <div class="cl">MACCHANU RACING · F1 IN SCHOOLS · WORLD FINALS 2026</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /deck -->
+
+<div id="nav">
+  <button id="prev">←</button>
+  <span id="counter">1 / 12</span>
+  <button id="next">→</button>
+</div>
+
+<script>
+(function(){
+  const deck=document.getElementById('deck');
+  function scale(){
+    const s=Math.min(window.innerWidth/1920,window.innerHeight/1080);
+    deck.style.transform='scale('+s+')';
+    deck.style.left=((window.innerWidth-1920*s)/2)+'px';
+    deck.style.top=((window.innerHeight-1080*s)/2)+'px';
+  }
+  scale(); window.addEventListener('resize',scale);
+
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const counter=document.getElementById('counter');
+  const progress=document.getElementById('progress');
+  let cur=0;
+
+  function show(n){
+    slides[cur].classList.remove('active');
+    cur=((n%slides.length)+slides.length)%slides.length;
+    slides[cur].classList.add('active');
+    counter.textContent=(cur+1)+' / '+slides.length;
+    progress.style.width=((cur+1)/slides.length*100)+'%';
+  }
+  show(0);
+  document.getElementById('prev').onclick=()=>show(cur-1);
+  document.getElementById('next').onclick=()=>show(cur+1);
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ')show(cur+1);
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp')show(cur-1);
+  });
+  deck.addEventListener('click',()=>show(cur+1));
+})();
+</script>
+</body>
+</html>

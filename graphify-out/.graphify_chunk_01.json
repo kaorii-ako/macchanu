@@ -1,0 +1,548 @@
+{
+  "nodes": [
+    {
+      "id": "claudemd_macchanu_project",
+      "label": "Macchanu Project CLAUDE.md",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "indexhtml_entry_point",
+      "label": "index.html App Entry Point",
+      "file_type": "code",
+      "source_file": "index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "product_macchanu_racing",
+      "label": "Macchanu Racing Team",
+      "file_type": "document",
+      "source_file": "PRODUCT.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": "2026-06-14",
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_macchanu_site",
+      "label": "Macchanu Racing Website README",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "license_mit",
+      "label": "MIT License",
+      "file_type": "document",
+      "source_file": "LICENSE.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Tawin Tangsukson",
+      "contributor": null
+    },
+    {
+      "id": "pdf_prospectus",
+      "label": "Sponsorship Prospectus PDF",
+      "file_type": "document",
+      "source_file": "public/prospectus.pdf",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "pdf_presentation",
+      "label": "Macchanu Presentation PDF",
+      "file_type": "document",
+      "source_file": "public/macchanu-presentation.pdf",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "arch_react_vite_spa",
+      "label": "React 18 + Vite SPA Architecture",
+      "file_type": "rationale",
+      "source_file": "CLAUDE.md",
+      "source_location": "Architecture section",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "arch_react_router_routes",
+      "label": "React Router v6 Routes",
+      "file_type": "rationale",
+      "source_file": "CLAUDE.md",
+      "source_location": "Architecture section",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "arch_theme_system",
+      "label": "Dark/Light Theme System",
+      "file_type": "rationale",
+      "source_file": "CLAUDE.md",
+      "source_location": "Theme System section",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "arch_design_system",
+      "label": "Custom Tailwind Design System",
+      "file_type": "rationale",
+      "source_file": "CLAUDE.md",
+      "source_location": "Design System section",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "arch_framer_motion",
+      "label": "Framer Motion v11 Animations",
+      "file_type": "rationale",
+      "source_file": "CLAUDE.md",
+      "source_location": "Animations section",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "font_bebas_neue",
+      "label": "Bebas Neue Display Font",
+      "file_type": "rationale",
+      "source_file": "index.html",
+      "source_location": "line 11",
+      "source_url": "https://fonts.googleapis.com/css2?family=Bebas+Neue",
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "font_space_grotesk",
+      "label": "Space Grotesk Body Font",
+      "file_type": "rationale",
+      "source_file": "index.html",
+      "source_location": "line 11",
+      "source_url": "https://fonts.googleapis.com/css2?family=Space+Grotesk",
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "brand_macchanu_identity",
+      "label": "Macchanu Brand Identity - Precise Cinematic Elite",
+      "file_type": "rationale",
+      "source_file": "PRODUCT.md",
+      "source_location": "Brand Personality section",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "product_f1_in_schools",
+      "label": "F1 in Schools World Finals 2026 Japan",
+      "file_type": "rationale",
+      "source_file": "PRODUCT.md",
+      "source_location": "Product Purpose section",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "product_target_audience",
+      "label": "Target Audiences: Sponsors, Judges, Public",
+      "file_type": "rationale",
+      "source_file": "PRODUCT.md",
+      "source_location": "Users section",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "product_design_principles",
+      "label": "Design Principles: Precision, Story, Studio-grade",
+      "file_type": "rationale",
+      "source_file": "PRODUCT.md",
+      "source_location": "Design Principles section",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "school_amnuay_silpa",
+      "label": "Amnuay Silpa School Thailand",
+      "file_type": "rationale",
+      "source_file": "PRODUCT.md",
+      "source_location": "Product Purpose section",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "color_mac_gold",
+      "label": "Mac Gold Color (#d6b747)",
+      "file_type": "rationale",
+      "source_file": "CLAUDE.md",
+      "source_location": "Design System section",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "color_mac_teal",
+      "label": "Mac Teal Color (#19757e)",
+      "file_type": "rationale",
+      "source_file": "CLAUDE.md",
+      "source_location": "Design System section",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "claudemd_macchanu_project",
+      "target": "arch_react_vite_spa",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "Architecture section",
+      "weight": 1.0
+    },
+    {
+      "source": "claudemd_macchanu_project",
+      "target": "arch_react_router_routes",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "Architecture section",
+      "weight": 1.0
+    },
+    {
+      "source": "claudemd_macchanu_project",
+      "target": "arch_theme_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "Theme System section",
+      "weight": 1.0
+    },
+    {
+      "source": "claudemd_macchanu_project",
+      "target": "arch_design_system",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "Design System section",
+      "weight": 1.0
+    },
+    {
+      "source": "claudemd_macchanu_project",
+      "target": "arch_framer_motion",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "Animations section",
+      "weight": 1.0
+    },
+    {
+      "source": "claudemd_macchanu_project",
+      "target": "pdf_prospectus",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "Static Assets section",
+      "weight": 1.0
+    },
+    {
+      "source": "indexhtml_entry_point",
+      "target": "font_bebas_neue",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "index.html",
+      "source_location": "line 11",
+      "weight": 1.0
+    },
+    {
+      "source": "indexhtml_entry_point",
+      "target": "font_space_grotesk",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "index.html",
+      "source_location": "line 11",
+      "weight": 1.0
+    },
+    {
+      "source": "arch_design_system",
+      "target": "color_mac_gold",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "Design System section",
+      "weight": 1.0
+    },
+    {
+      "source": "arch_design_system",
+      "target": "color_mac_teal",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "Design System section",
+      "weight": 1.0
+    },
+    {
+      "source": "arch_design_system",
+      "target": "font_bebas_neue",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "Design System section",
+      "weight": 1.0
+    },
+    {
+      "source": "arch_design_system",
+      "target": "font_space_grotesk",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md",
+      "source_location": "Design System section",
+      "weight": 1.0
+    },
+    {
+      "source": "product_macchanu_racing",
+      "target": "product_f1_in_schools",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PRODUCT.md",
+      "source_location": "Product Purpose section",
+      "weight": 1.0
+    },
+    {
+      "source": "product_macchanu_racing",
+      "target": "school_amnuay_silpa",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PRODUCT.md",
+      "source_location": "Product Purpose section",
+      "weight": 1.0
+    },
+    {
+      "source": "product_macchanu_racing",
+      "target": "product_target_audience",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PRODUCT.md",
+      "source_location": "Users section",
+      "weight": 1.0
+    },
+    {
+      "source": "product_macchanu_racing",
+      "target": "brand_macchanu_identity",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PRODUCT.md",
+      "source_location": "Brand Personality section",
+      "weight": 1.0
+    },
+    {
+      "source": "product_macchanu_racing",
+      "target": "product_design_principles",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PRODUCT.md",
+      "source_location": "Design Principles section",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_macchanu_site",
+      "target": "arch_react_vite_spa",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "Tech Stack section",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_macchanu_site",
+      "target": "license_mit",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "License section",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_macchanu_site",
+      "target": "pdf_prospectus",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "Features section",
+      "weight": 1.0
+    },
+    {
+      "source": "product_design_principles",
+      "target": "brand_macchanu_identity",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PRODUCT.md",
+      "source_location": "Design Principles section",
+      "weight": 1.0
+    },
+    {
+      "source": "arch_design_system",
+      "target": "brand_macchanu_identity",
+      "relation": "rationale_for",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "CLAUDE.md",
+      "source_location": "Design System section",
+      "weight": 0.85
+    },
+    {
+      "source": "pdf_prospectus",
+      "target": "product_target_audience",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "PRODUCT.md",
+      "source_location": "Users section",
+      "weight": 0.85
+    },
+    {
+      "source": "pdf_presentation",
+      "target": "pdf_prospectus",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "README.md",
+      "source_location": "Features section",
+      "weight": 0.75
+    },
+    {
+      "source": "claudemd_macchanu_project",
+      "target": "readme_macchanu_site",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "CLAUDE.md",
+      "source_location": null,
+      "weight": 0.75
+    },
+    {
+      "source": "brand_macchanu_identity",
+      "target": "color_mac_gold",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "CLAUDE.md",
+      "source_location": "Design System section",
+      "weight": 0.75
+    },
+    {
+      "source": "product_f1_in_schools",
+      "target": "school_amnuay_silpa",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "PRODUCT.md",
+      "source_location": "Product Purpose section",
+      "weight": 1.0
+    },
+    {
+      "source": "arch_framer_motion",
+      "target": "product_design_principles",
+      "relation": "rationale_for",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "PRODUCT.md",
+      "source_location": "Design Principles section - Motion earns its place",
+      "weight": 0.65
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "macchanu_brand_design_stack",
+      "label": "Brand Identity realized through Design System and Typography",
+      "nodes": ["brand_macchanu_identity", "arch_design_system", "font_bebas_neue", "color_mac_gold"],
+      "relation": "implement",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "CLAUDE.md"
+    },
+    {
+      "id": "spa_routing_static_delivery",
+      "label": "React SPA + Router + Static Build pipeline",
+      "nodes": ["arch_react_vite_spa", "arch_react_router_routes", "indexhtml_entry_point"],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CLAUDE.md"
+    },
+    {
+      "id": "sponsorship_pitch_materials",
+      "label": "Sponsorship pitch: product site + prospectus + presentation",
+      "nodes": ["product_macchanu_racing", "pdf_prospectus", "pdf_presentation", "product_target_audience"],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "PRODUCT.md"
+    }
+  ],
+  "input_tokens": 2800,
+  "output_tokens": 1100
+}

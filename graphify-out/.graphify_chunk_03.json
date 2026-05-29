@@ -1,0 +1,175 @@
+{
+  "nodes": [
+    {
+      "id": "img1_shark_illustration",
+      "label": "Shark Illustration",
+      "file_type": "image",
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "img1_teal_background",
+      "label": "Teal Background",
+      "file_type": "image",
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "img1_lily_pad_motif",
+      "label": "Lily Pad / Water Plant Motif",
+      "file_type": "image",
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "img1_letter_u_emblem",
+      "label": "Stylized Letter U Emblem",
+      "file_type": "image",
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "img1_logo_graphic",
+      "label": "Brand Logo / Mascot Graphic",
+      "file_type": "image",
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "img1_circular_ripple_pattern",
+      "label": "Circular Ripple / Water Ring Pattern",
+      "file_type": "image",
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "img1_shark_illustration",
+      "target": "img1_logo_graphic",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "img1_teal_background",
+      "target": "img1_logo_graphic",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "img1_lily_pad_motif",
+      "target": "img1_shark_illustration",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "img1_letter_u_emblem",
+      "target": "img1_logo_graphic",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "img1_circular_ripple_pattern",
+      "target": "img1_shark_illustration",
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "img1_logo_graphic",
+      "target": "img1_letter_u_emblem",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "weight": 0.85
+    },
+    {
+      "source": "img1_teal_background",
+      "target": "img1_shark_illustration",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "weight": 0.95
+    },
+    {
+      "source": "img1_lily_pad_motif",
+      "target": "img1_logo_graphic",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "weight": 0.85
+    },
+    {
+      "source": "img1_circular_ripple_pattern",
+      "target": "img1_logo_graphic",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "weight": 0.85
+    },
+    {
+      "source": "img1_letter_u_emblem",
+      "target": "img1_shark_illustration",
+      "relation": "conceptually_related_to",
+      "confidence": "AMBIGUOUS",
+      "confidence_score": 0.25,
+      "source_file": "IMG1.PNG",
+      "source_location": null,
+      "weight": 0.25
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 1024,
+  "output_tokens": 512
+}

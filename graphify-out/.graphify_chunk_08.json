@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "id": "PTT_PTTGroup",
+      "label": "PTT Group",
+      "file_type": "image",
+      "source_file": "PTT.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "PTT_LogoSymbol",
+      "label": "PTT Logo Symbol (Flame/Drop)",
+      "file_type": "image",
+      "source_file": "PTT.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "PTT_Industry_PetroleumEnergy",
+      "label": "Petroleum and Energy Industry",
+      "file_type": "image",
+      "source_file": "PTT.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "PTT_Country_Thailand",
+      "label": "Thailand",
+      "file_type": "image",
+      "source_file": "PTT.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "Macchanu_Project",
+      "label": "Macchanu Project",
+      "file_type": "image",
+      "source_file": "PTT.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "PTT_PTTGroup",
+      "target": "PTT_LogoSymbol",
+      "relation": "HAS_LOGO",
+      "provenance": "EXTRACTED",
+      "confidence_score": 1.0,
+      "notes": "Image shows the PTT Group corporate logo with distinctive flame/droplet symbol in blue, cyan, and red colors alongside 'ptt Group' wordmark in navy blue italic text."
+    },
+    {
+      "source": "PTT_PTTGroup",
+      "target": "PTT_Industry_PetroleumEnergy",
+      "relation": "OPERATES_IN",
+      "provenance": "INFERRED",
+      "confidence_score": 0.95,
+      "notes": "PTT stands for Petroleum Authority of Thailand; flame/droplet logo iconography is strongly associated with petroleum/energy sector."
+    },
+    {
+      "source": "PTT_PTTGroup",
+      "target": "PTT_Country_Thailand",
+      "relation": "HEADQUARTERED_IN",
+      "provenance": "INFERRED",
+      "confidence_score": 0.95,
+      "notes": "PTT is Thailand's national petroleum and energy company, state-owned enterprise."
+    },
+    {
+      "source": "PTT_PTTGroup",
+      "target": "Macchanu_Project",
+      "relation": "IS_SPONSOR_OF",
+      "provenance": "INFERRED",
+      "confidence_score": 0.85,
+      "notes": "PTT.png is stored in the Macchanu project repository alongside other sponsor logos, indicating PTT Group is likely a sponsor of the Macchanu project/team."
+    },
+    {
+      "source": "PTT_LogoSymbol",
+      "target": "PTT_Industry_PetroleumEnergy",
+      "relation": "REPRESENTS",
+      "provenance": "INFERRED",
+      "confidence_score": 0.85,
+      "notes": "The flame/water-droplet composite symbol in the logo visually represents energy (flame) and petroleum/liquid fuel (droplet), consistent with oil and gas industry branding."
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 1200,
+  "output_tokens": 420
+}
