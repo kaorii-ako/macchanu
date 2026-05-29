@@ -60,22 +60,22 @@ export default function Footer() {
           >
             <h4 className="text-[10px] font-grotesk tracking-[0.2em] text-mac-gold mb-4">OUR SPONSORS</h4>
             <div className="flex flex-col gap-4">
-              <div className="flex items-center gap-3">
+              <a href="https://www.amnuaysilpa.ac.th/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 transition-opacity hover:opacity-80">
                 <img src="/ANS.png" alt="Amnuaysilpa School" className="w-auto object-contain" style={{ height: 36, filter: 'grayscale(0.3)', borderRadius: '6px' }} />
                 <span className="text-xs font-grotesk" style={{ color: 'var(--theme-text-faint)' }}>Jasmine Sponsor</span>
-              </div>
-              <div className="flex items-center gap-3">
+              </a>
+              <a href="https://mrithailand.com/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 transition-opacity hover:opacity-80">
                 <img src="/PC.webp" alt="ประชาชื่นอิมเมจจิ้งเซ็นเตอร์" className="w-auto object-contain" style={{ height: 32, filter: 'grayscale(0.3)' }} />
                 <span className="text-xs font-grotesk" style={{ color: 'var(--theme-text-faint)' }}>Orchid Sponsor</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <img src="/PTT.png" alt="PTT" className="w-auto object-contain" style={{ height: 32, filter: 'grayscale(0.3)' }} />
+              </a>
+              <a href="https://www.pttep.com/en/home" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 transition-opacity hover:opacity-80">
+                <img src="/PTT.png" alt="PTTEP" className="w-auto object-contain" style={{ height: 32, filter: 'grayscale(0.3)' }} />
                 <span className="text-xs font-grotesk" style={{ color: 'var(--theme-text-faint)' }}>Orchid Sponsor</span>
-              </div>
-              <div className="flex items-center gap-3">
+              </a>
+              <a href="https://ff.co.th/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 transition-opacity hover:opacity-80">
                 <img src="/FF.png" alt="FF" className="w-auto object-contain" style={{ height: 24, filter: 'grayscale(0.3)' }} />
                 <span className="text-xs font-grotesk" style={{ color: 'var(--theme-text-faint)' }}>Lily Sponsor</span>
-              </div>
+              </a>
             </div>
           </motion.div>
         </div>

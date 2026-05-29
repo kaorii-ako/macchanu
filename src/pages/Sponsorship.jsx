@@ -8,10 +8,10 @@ function logoHeight(amount) {
 }
 
 const sponsors = [
-  { name: 'Amnuaysilpa School', logo: '/ANS.png', tierName: 'Jasmine', amount: 150000 },
-  { name: 'ประชาชื่นอิมเมจจิ้งเซ็นเตอร์', logo: '/PC.webp', tierName: 'Orchid', amount: 60000 },
-  { name: 'PTTEP', logo: '/PTT.png', tierName: 'Orchid', amount: 25000 },
-  { name: 'FF',    logo: '/FF.png',  tierName: 'Lily',   amount: 5000  },
+  { name: 'Amnuaysilpa School', logo: '/ANS.png', tierName: 'Jasmine', amount: 150000, url: 'https://www.amnuaysilpa.ac.th/' },
+  { name: 'ประชาชื่นอิมเมจจิ้งเซ็นเตอร์', logo: '/PC.webp', tierName: 'Orchid', amount: 60000, url: 'https://mrithailand.com/' },
+  { name: 'PTTEP', logo: '/PTT.png', tierName: 'Orchid', amount: 25000, url: 'https://www.pttep.com/en/home' },
+  { name: 'FF',    logo: '/FF.png',  tierName: 'Lily',   amount: 5000,  url: 'https://ff.co.th/' },
 ]
 
 const GOAL = 575000
@@ -244,11 +244,13 @@ export default function Sponsorship() {
                   viewport={{ once: true }}
                   className="flex flex-col items-center gap-3"
                 >
-                  <img
-                    src={s.logo}
-                    alt={s.name}
-                    style={{ height: h, width: 'auto', maxWidth: 200, objectFit: 'contain', ...(s.logo === '/ANS.png' && { borderRadius: '16px' }) }}
-                  />
+                  <a href={s.url} target="_blank" rel="noopener noreferrer" className="block transition-opacity hover:opacity-80">
+                    <img
+                      src={s.logo}
+                      alt={s.name}
+                      style={{ height: h, width: 'auto', maxWidth: 200, objectFit: 'contain', ...(s.logo === '/ANS.png' && { borderRadius: '16px' }) }}
+                    />
+                  </a>
                   <div className="text-center">
                     <div className="text-[10px] font-grotesk tracking-[0.18em]" style={{ color: 'var(--theme-text-faint)' }}>
                       {s.tierName.toUpperCase()} TIER
