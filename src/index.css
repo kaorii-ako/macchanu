@@ -99,11 +99,14 @@ body {
 
 /* ─── Buttons ───────────────────────────────────────── */
 .btn-gold {
-  @apply relative inline-flex items-center justify-center px-8 py-3 rounded-full bg-gradient-to-r from-mac-gold to-mac-gold-light text-mac-black font-bold tracking-widest transition-all duration-300 shadow-lg shadow-mac-gold/20;
+  @apply relative inline-flex items-center justify-center px-8 py-3 rounded-full bg-gradient-to-r from-mac-gold to-mac-gold-light text-mac-black font-bold tracking-widest transition-all duration-300 shadow-lg shadow-mac-gold/20 cursor-pointer select-none;
 }
 .btn-gold:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(214, 183, 71, 0.4);
+}
+.btn-gold:active {
+  transform: translateY(0px) scale(0.97);
 }
 
 .btn-primary {
@@ -118,39 +121,41 @@ body {
   border: 1px solid var(--theme-btn-border);
   color: var(--theme-text);
   background: transparent;
+  cursor: pointer;
+  user-select: none;
 }
 .btn-primary:hover {
   border-color: rgba(214, 183, 71, 0.5);
   color: #d6b747;
   background: rgba(214, 183, 71, 0.06);
 }
+.btn-primary:active {
+  transform: scale(0.97);
+}
 
 /* ─── Glass cards ───────────────────────────────────── */
 .glass-card {
   background: var(--theme-surface);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
   border-radius: 24px;
   padding: 2rem;
   border: 1px solid var(--theme-border);
-  transition: background 0.3s ease, border-color 0.3s ease, transform 0.5s ease, box-shadow 0.5s ease;
-}
-.glass-card:hover {
-  background: var(--theme-surface-hover);
-  border-color: var(--theme-border-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 60px var(--theme-shadow);
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.4s ease;
+  will-change: transform;
 }
 
 .glass-card-hover {
   background: var(--theme-surface);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
   border-radius: 24px;
   padding: 2rem;
   border: 1px solid var(--theme-border);
-  transition: background 0.3s ease, border-color 0.3s ease, transform 0.5s ease, box-shadow 0.5s ease;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.4s ease;
   position: relative;
+  cursor: default;
+  will-change: transform;
 }
 .glass-card-hover::before {
   content: '';
@@ -164,14 +169,14 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.35s ease;
   pointer-events: none;
 }
 .glass-card-hover:hover::before { opacity: 1; }
 .glass-card-hover:hover {
   background: var(--theme-surface-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 60px var(--theme-shadow);
+  border-color: var(--theme-border-hover);
+  box-shadow: 0 24px 64px var(--theme-shadow), 0 0 0 1px rgba(214,183,71,0.06) inset;
 }
 
 /* ─── Noise overlay ─────────────────────────────────── */

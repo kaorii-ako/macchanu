@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 
 const COMPETITION_DATE = new Date('2026-06-14T00:00:00+09:00')
 
@@ -79,34 +79,83 @@ const MARQUEE_TEXT = [
   'MACCHANU RACING',
 ]
 
+// Shared variants
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
+  }),
+}
+
+const staggerGrid = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+}
+
+const cardItem = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+}
+
+const springCard = {
+  rest: { scale: 1, y: 0 },
+  hover: {
+    scale: 1.025,
+    y: -6,
+    transition: { type: 'spring', stiffness: 300, damping: 22 },
+  },
+}
+
 export default function Home() {
   const { days, hours, mins } = useCountdown()
+  const heroRef = useRef(null)
+  const { scrollY } = useScroll()
+  const rawY = useTransform(scrollY, [0, 600], [0, -80])
+  const parallaxY = useSpring(rawY, { stiffness: 60, damping: 20 })
 
   return (
     <div>
       {/* ── Hero ──────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Background — follows theme */}
-        <div className="absolute inset-0" style={{ background: 'var(--theme-bg)' }} />
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(25,117,126,0.08) 0%, transparent 70%)' }} />
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 50% 40% at 50% 50%, rgba(214,183,71,0.04) 0%, transparent 60%)' }} />
+      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Background with parallax */}
+        <motion.div
+          style={{ y: parallaxY }}
+          className="absolute inset-0 pointer-events-none"
+        >
+          <div className="absolute inset-0" style={{ background: 'var(--theme-bg)' }} />
+          <div className="absolute inset-0"
+            style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(25,117,126,0.1) 0%, transparent 70%)' }} />
+          <div className="absolute inset-0"
+            style={{ background: 'radial-gradient(ellipse 50% 40% at 50% 50%, rgba(214,183,71,0.06) 0%, transparent 60%)' }} />
+          {/* Blueprint grid subtle */}
+          <div className="absolute inset-0 opacity-[0.025]" style={{
+            backgroundImage: 'linear-gradient(rgba(214,183,71,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(214,183,71,0.8) 1px, transparent 1px)',
+            backgroundSize: '80px 80px',
+          }} />
+        </motion.div>
 
         {/* Content */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 pt-32 pb-20 md:pb-28 flex flex-col items-center text-center">
           {/* Logo circle */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
+            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="relative mb-8"
           >
-            {/* Outer glow ring */}
-            <div className="absolute inset-0 rounded-full"
-              style={{ boxShadow: '0 0 40px rgba(214,183,71,0.15), 0 0 80px rgba(214,183,71,0.06)', borderRadius: '50%' }} />
-            {/* Gold gradient border */}
-            <div className="w-28 h-28 md:w-36 md:h-36 rounded-full p-[2px]"
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              className="absolute inset-[-6px] rounded-full"
+              style={{
+                background: 'conic-gradient(from 0deg, rgba(214,183,71,0.6), rgba(25,117,126,0.4), rgba(214,183,71,0.1), rgba(214,183,71,0.6))',
+                borderRadius: '50%',
+                filter: 'blur(2px)',
+              }}
+            />
+            <div className="w-28 h-28 md:w-36 md:h-36 rounded-full p-[2px] relative"
               style={{ background: 'linear-gradient(135deg, rgba(214,183,71,0.7), rgba(25,117,126,0.5), rgba(214,183,71,0.3))' }}>
               <div className="w-full h-full rounded-full overflow-hidden" style={{ background: 'var(--theme-bg)' }}>
                 <img src="/IMG1.PNG" alt="Macchanu Racing" className="w-full h-full object-cover" />
@@ -118,7 +167,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
             className="mb-5"
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-grotesk tracking-[0.25em] text-mac-gold"
@@ -128,12 +177,12 @@ export default function Home() {
             </span>
           </motion.div>
 
-          {/* Headline — one word */}
+          {/* Headline */}
           <div className="overflow-hidden mb-5">
             <motion.h1
-              initial={{ y: '100%' }}
+              initial={{ y: '110%' }}
               animate={{ y: 0 }}
-              transition={{ duration: 0.9, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.95, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
               className="font-display leading-none"
               style={{ fontSize: 'clamp(4.5rem, 16vw, 16rem)', lineHeight: 0.88 }}
             >
@@ -145,7 +194,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.1 }}
+            transition={{ duration: 0.6, delay: 1.05 }}
             className="mb-8"
           >
             <p className="text-base md:text-lg font-grotesk tracking-[0.2em] text-mac-gold/80 uppercase mb-2">
@@ -160,7 +209,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.3 }}
+            transition={{ duration: 0.6, delay: 1.25 }}
             className="flex flex-col items-center gap-3 mb-10"
           >
             <div className="flex items-center gap-2">
@@ -170,7 +219,11 @@ export default function Home() {
                 { v: String(mins).padStart(2,'0'),  l: 'MIN' },
               ].map(({ v, l }, i) => (
                 <div key={l} className="flex items-center gap-2">
-                  <div className="text-center">
+                  <motion.div
+                    className="text-center"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                  >
                     <div
                       className="font-display text-5xl md:text-6xl text-mac-gold leading-none px-4 py-3 rounded-2xl"
                       style={{
@@ -181,7 +234,7 @@ export default function Home() {
                       }}
                     >{v}</div>
                     <div className="text-[9px] font-grotesk tracking-[0.2em] mt-2" style={{ color: 'rgba(214,183,71,0.45)' }}>{l}</div>
-                  </div>
+                  </motion.div>
                   {i < 2 && <span className="font-display text-3xl text-mac-gold/25 mb-5">:</span>}
                 </div>
               ))}
@@ -197,11 +250,27 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.5 }}
+            transition={{ duration: 0.6, delay: 1.45 }}
             className="flex flex-col sm:flex-row gap-3 justify-center"
           >
-            <a href="/sponsorship" className="btn-gold">Sponsor Us</a>
-            <a href="/team" className="btn-primary">Meet the Team</a>
+            <motion.a
+              href="/sponsorship"
+              className="btn-gold"
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+            >
+              Sponsor Us
+            </motion.a>
+            <motion.a
+              href="/team"
+              className="btn-primary"
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+            >
+              Meet the Team
+            </motion.a>
           </motion.div>
         </div>
       </section>
@@ -223,14 +292,19 @@ export default function Home() {
       {/* ── Stats ─────────────────────────────────────────── */}
       <section className="section-padding">
         <div className="max-w-6xl mx-auto px-6 md:px-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <motion.div
+            className="grid grid-cols-2 md:grid-cols-4 gap-4"
+            variants={staggerGrid}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                viewport={{ once: true }}
+                variants={cardItem}
+                whileHover={{ scale: 1.04, y: -5, transition: { type: 'spring', stiffness: 300, damping: 22 } }}
+                custom={i}
                 className="glass-card text-center relative overflow-hidden"
                 style={{ padding: '1.5rem 1rem' }}
               >
@@ -250,7 +324,7 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -259,8 +333,9 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
             >
               <span className="text-xs font-grotesk tracking-widest text-mac-teal mb-4 block">ABOUT THE TEAM</span>
@@ -278,28 +353,31 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
               className="grid grid-cols-2 gap-4"
+              variants={staggerGrid}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
             >
               {[
-                { title: 'CAD / CAM', sub: 'Industry-standard software', accent: 'mac-gold' },
-                { title: 'CFD Validated', sub: 'Computational fluid dynamics', accent: 'mac-teal' },
-                { title: '±0.01mm', sub: 'CNC manufacturing accuracy', accent: 'mac-gold' },
-                { title: '6 Students', sub: 'One shared ambition', accent: 'mac-teal' },
-              ].map((card, i) => (
+                { title: 'CAD / CAM', sub: 'Industry-standard software' },
+                { title: 'CFD Validated', sub: 'Computational fluid dynamics' },
+                { title: '±0.01mm', sub: 'CNC manufacturing accuracy' },
+                { title: '6 Students', sub: 'One shared ambition' },
+              ].map((card) => (
                 <motion.div
                   key={card.title}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  viewport={{ once: true }}
+                  variants={cardItem}
+                  initial="rest"
+                  whileHover="hover"
+                  animate="rest"
                   className="glass-card-hover"
                   style={{ padding: '1.25rem 1.25rem' }}
                 >
-                  <div className={`text-${card.accent} font-display text-2xl mb-1`}>{card.title}</div>
-                  <div className="text-xs font-grotesk tracking-wide" style={{ color: 'var(--theme-text-faint)' }}>{card.sub}</div>
+                  <motion.div variants={springCard}>
+                    <div className="text-mac-gold font-display text-2xl mb-1">{card.title}</div>
+                    <div className="text-xs font-grotesk tracking-wide" style={{ color: 'var(--theme-text-faint)' }}>{card.sub}</div>
+                  </motion.div>
                 </motion.div>
               ))}
             </motion.div>
@@ -311,8 +389,9 @@ export default function Home() {
       <section className="section-padding">
         <div className="max-w-6xl mx-auto px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="mb-12"
           >
@@ -322,35 +401,54 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {teamPreview.map((m, i) => (
+          <motion.div
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
+            variants={staggerGrid}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            {teamPreview.map((m) => (
               <motion.div
                 key={m.nickname}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
-                viewport={{ once: true }}
+                variants={cardItem}
+                initial="rest"
+                whileHover="hover"
+                animate="rest"
                 className="glass-card-hover text-center"
                 style={{ padding: '1.5rem 1rem' }}
               >
-                {/* Letter avatar */}
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${m.color} flex items-center justify-center mx-auto mb-3 shrink-0`}>
-                  <span className="font-display text-2xl text-mac-black leading-none">
-                    {m.nickname[0]}
-                  </span>
-                </div>
-                <div className="font-display text-xl leading-none mb-1" style={{ color: 'var(--theme-text)' }}>
-                  {m.nickname.toUpperCase()}
-                </div>
-                <div className="text-[10px] font-grotesk tracking-wide" style={{ color: 'var(--theme-text-faint)' }}>
-                  {m.role}
-                </div>
+                <motion.div variants={springCard}>
+                  <motion.div
+                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${m.color} flex items-center justify-center mx-auto mb-3 shrink-0`}
+                    whileHover={{ rotate: [0, -4, 4, 0] }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <span className="font-display text-2xl text-mac-black leading-none">
+                      {m.nickname[0]}
+                    </span>
+                  </motion.div>
+                  <div className="font-display text-xl leading-none mb-1" style={{ color: 'var(--theme-text)' }}>
+                    {m.nickname.toUpperCase()}
+                  </div>
+                  <div className="text-[10px] font-grotesk tracking-wide" style={{ color: 'var(--theme-text-faint)' }}>
+                    {m.role}
+                  </div>
+                </motion.div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <div className="mt-8">
-            <a href="/team" className="btn-primary inline-block">View Full Team</a>
+            <motion.a
+              href="/team"
+              className="btn-primary inline-block"
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+            >
+              View Full Team
+            </motion.a>
           </div>
         </div>
       </section>
@@ -359,15 +457,20 @@ export default function Home() {
       <section className="section-padding">
         <div className="max-w-6xl mx-auto px-6 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* Image card */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              variants={fadeUp}
+              custom={0}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
               className="glass-card overflow-hidden"
               style={{ padding: 0, aspectRatio: '4/3' }}
             >
-              <div className="relative w-full h-full min-h-[260px]">
+              <motion.div
+                className="relative w-full h-full min-h-[260px] overflow-hidden rounded-3xl"
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              >
                 <img
                   src="/IMG1.PNG"
                   alt="Macchanu Racing"
@@ -382,12 +485,14 @@ export default function Home() {
                     CAD / CFD / CNC
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              variants={fadeUp}
+              custom={1}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
             >
               <span className="text-xs font-grotesk tracking-widest text-mac-teal mb-4 block">ENGINEERING EXCELLENCE</span>
@@ -410,7 +515,15 @@ export default function Home() {
                   <div className="text-[10px] tracking-widest font-grotesk" style={{ color: 'var(--theme-text-faint)' }}>mm ACCURACY</div>
                 </div>
               </div>
-              <a href="/engineering" className="btn-gold inline-block">View Engineering</a>
+              <motion.a
+                href="/engineering"
+                className="btn-gold inline-block"
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+              >
+                View Engineering
+              </motion.a>
             </motion.div>
           </div>
         </div>
@@ -420,13 +533,13 @@ export default function Home() {
       <section className="section-padding">
         <div className="max-w-5xl mx-auto px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="relative overflow-hidden rounded-3xl"
             style={{ border: '1px solid var(--theme-border)' }}
           >
-            {/* Background */}
             <img
               src="/IMG3.JPG"
               alt=""
@@ -435,6 +548,9 @@ export default function Home() {
             />
             <div className="absolute inset-0"
               style={{ background: 'linear-gradient(135deg, rgba(10,10,15,0.75) 0%, rgba(10,10,15,0.55) 100%)' }} />
+            {/* Gold shimmer top */}
+            <div className="absolute top-0 left-0 right-0 h-px"
+              style={{ background: 'linear-gradient(90deg, transparent, rgba(214,183,71,0.7), transparent)' }} />
 
             <div className="relative z-10 p-10 md:p-16 text-center">
               <span className="text-xs font-grotesk tracking-[0.25em] text-mac-gold/70 mb-4 block">JOIN OUR JOURNEY</span>
@@ -447,8 +563,25 @@ export default function Home() {
                 Six Thai students. One stage. Your support makes the difference.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/sponsorship" className="btn-gold">Sponsorship Prospectus</a>
-                <a href="mailto:matchanu.racing@gmail.com" className="btn-primary" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.25)' }}>Contact Us</a>
+                <motion.a
+                  href="/sponsorship"
+                  className="btn-gold"
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.96 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+                >
+                  Sponsorship Prospectus
+                </motion.a>
+                <motion.a
+                  href="mailto:matchanu.racing@gmail.com"
+                  className="btn-primary"
+                  style={{ color: 'white', borderColor: 'rgba(255,255,255,0.25)' }}
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.96 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+                >
+                  Contact Us
+                </motion.a>
               </div>
             </div>
           </motion.div>

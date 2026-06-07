@@ -72,6 +72,34 @@ const missionItems = [
   },
 ]
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] },
+  }),
+}
+
+const staggerGrid = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
+}
+
+const cardItem = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+}
+
+const springHover = {
+  rest: { scale: 1, y: 0 },
+  hover: {
+    scale: 1.025,
+    y: -6,
+    transition: { type: 'spring', stiffness: 300, damping: 22 },
+  },
+}
+
 export default function Team() {
   return (
     <div className="pt-24">
@@ -81,6 +109,7 @@ export default function Team() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="mb-6"
           >
             <span className="px-4 py-1.5 rounded-full text-xs font-grotesk tracking-[0.2em] text-mac-teal"
@@ -88,19 +117,21 @@ export default function Team() {
               THE TEAM
             </span>
           </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="font-display leading-none mb-6"
-            style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)', color: 'var(--theme-text)' }}
-          >
-            MEET <span className="text-gradient">MACCHANU</span>
-          </motion.h1>
+          <div className="overflow-hidden mb-6">
+            <motion.h1
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display leading-none"
+              style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)', color: 'var(--theme-text)' }}
+            >
+              MEET <span className="text-gradient">MACCHANU</span>
+            </motion.h1>
+          </div>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
             className="text-lg max-w-2xl font-grotesk"
             style={{ color: 'var(--theme-text-muted)' }}
           >
@@ -111,55 +142,63 @@ export default function Team() {
 
       {/* Team Members */}
       <section className="section-padding pt-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-6 md:px-10">
-          {teamMembers.map((member, i) => (
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-6 md:px-10"
+          variants={staggerGrid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          {teamMembers.map((member) => (
             <motion.div
               key={member.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08, duration: 0.5 }}
-              viewport={{ once: true }}
+              variants={cardItem}
+              initial="rest"
+              whileHover="hover"
+              animate="rest"
               className="glass-card-hover group relative overflow-hidden"
             >
-              {/* Top gradient stripe */}
-              <div className={`absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r ${member.color}`} />
-
-              <div className="relative z-10 pt-2">
-                {/* Letter avatar */}
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${member.color} flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300`}>
-                  <span className="font-display text-3xl text-mac-black leading-none">
-                    {member.nickname[0]}
-                  </span>
+              <motion.div variants={springHover}>
+                <div className={`absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r ${member.color}`} />
+                <div className="relative z-10 pt-2">
+                  <motion.div
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${member.color} flex items-center justify-center mb-5`}
+                    whileHover={{ rotate: [0, -5, 5, 0], scale: 1.08 }}
+                    transition={{ duration: 0.35 }}
+                  >
+                    <span className="font-display text-3xl text-mac-black leading-none">
+                      {member.nickname[0]}
+                    </span>
+                  </motion.div>
+                  <div>
+                    <span className="text-[10px] font-grotesk tracking-[0.2em] text-mac-teal/80 block mb-1">{member.role}</span>
+                    <h3 className="font-display text-2xl leading-tight mb-0.5" style={{ color: 'var(--theme-text)' }}>
+                      {member.nickname.toUpperCase()}
+                    </h3>
+                    <p className="text-xs font-grotesk mb-3" style={{ color: 'var(--theme-text-faint)' }}>
+                      {member.name}
+                    </p>
+                    <p className="text-sm font-grotesk leading-relaxed" style={{ color: 'var(--theme-text-muted)' }}>
+                      {member.desc}
+                    </p>
+                  </div>
                 </div>
-
-                <div>
-                  <span className="text-[10px] font-grotesk tracking-[0.2em] text-mac-teal/80 block mb-1">{member.role}</span>
-                  <h3 className="font-display text-2xl leading-tight mb-0.5" style={{ color: 'var(--theme-text)' }}>
-                    {member.nickname.toUpperCase()}
-                  </h3>
-                  <p className="text-xs font-grotesk mb-3" style={{ color: 'var(--theme-text-faint)' }}>
-                    {member.name}
-                  </p>
-                  <p className="text-sm font-grotesk leading-relaxed" style={{ color: 'var(--theme-text-muted)' }}>
-                    {member.desc}
-                  </p>
-                </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* Team Identity */}
       <section className="section-padding">
         <div className="max-w-5xl mx-auto px-6 md:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
-          >
-            <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
               <span className="text-xs text-mac-gold font-grotesk tracking-widest mb-4 block">OUR IDENTITY</span>
               <h2 className="font-display text-5xl md:text-6xl leading-none mb-6">
                 <span style={{ color: 'var(--theme-text)' }}>WHY</span><br />
@@ -171,18 +210,33 @@ export default function Team() {
               <p className="font-grotesk leading-relaxed" style={{ color: 'var(--theme-text-faint)' }}>
                 We chose the fish as our logo identity, representing fluidity. Our muted teal and gold palette communicates a calm yet bold presence — subtle in tone, impactful in identity.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="glass-card text-center overflow-hidden" style={{ padding: 0 }}>
-              <div className="relative">
+            <motion.div
+              variants={fadeUp}
+              custom={1}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="glass-card overflow-hidden"
+              style={{ padding: 0 }}
+            >
+              <motion.div
+                variants={{
+                  rest: { scale: 1 },
+                  hover: { scale: 1.03, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+                }}
+                className="overflow-hidden"
+                style={{ borderRadius: '24px 24px 0 0' }}
+              >
                 <img
                   src="/IMG1.PNG"
                   alt="Macchanu Mascot"
                   className="w-full object-cover object-center"
                   style={{ height: 200, filter: 'saturate(0.85)' }}
                 />
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,15,0.7) 0%, transparent 55%)' }} />
-              </div>
+              </motion.div>
+              <div className="absolute inset-x-0 top-0" style={{ height: 200, background: 'linear-gradient(to top, rgba(10,10,15,0.7) 0%, transparent 55%)', borderRadius: '24px 24px 0 0', pointerEvents: 'none' }} />
               <div style={{ padding: '1.5rem 2rem' }}>
                 <h3 className="font-display text-2xl mb-2" style={{ color: 'var(--theme-text)' }}>
                   MACCHANU RACING
@@ -191,8 +245,8 @@ export default function Team() {
                   Mythological strength × Hydrodynamic innovation
                 </p>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -200,8 +254,9 @@ export default function Team() {
       <section className="section-padding">
         <div className="max-w-5xl mx-auto px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="mb-12"
           >
@@ -211,24 +266,32 @@ export default function Team() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {missionItems.map((item, i) => (
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            variants={staggerGrid}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            {missionItems.map((item) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                viewport={{ once: true }}
+                variants={cardItem}
+                initial="rest"
+                whileHover="hover"
+                animate="rest"
                 className="glass-card-hover"
               >
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4`}>
-                  <span className="font-display text-xl text-mac-black leading-none">{item.letter}</span>
-                </div>
-                <h3 className="font-display text-2xl mb-2" style={{ color: 'var(--theme-text)' }}>{item.title.toUpperCase()}</h3>
-                <p className="text-sm font-grotesk leading-relaxed" style={{ color: 'var(--theme-text-muted)' }}>{item.desc}</p>
+                <motion.div variants={springHover}>
+                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4`}>
+                    <span className="font-display text-xl text-mac-black leading-none">{item.letter}</span>
+                  </div>
+                  <h3 className="font-display text-2xl mb-2" style={{ color: 'var(--theme-text)' }}>{item.title.toUpperCase()}</h3>
+                  <p className="text-sm font-grotesk leading-relaxed" style={{ color: 'var(--theme-text-muted)' }}>{item.desc}</p>
+                </motion.div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -236,8 +299,9 @@ export default function Team() {
       <section className="section-padding pt-0">
         <div className="max-w-4xl mx-auto px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="glass-card text-center"
             style={{ padding: '3rem' }}
@@ -254,7 +318,11 @@ export default function Team() {
             </p>
             <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full"
               style={{ background: 'rgba(214,183,71,0.08)', border: '1px solid rgba(214,183,71,0.25)' }}>
-              <span className="w-2 h-2 rounded-full bg-mac-green animate-pulse" />
+              <motion.span
+                className="w-2 h-2 rounded-full bg-mac-green"
+                animate={{ scale: [1, 1.5, 1], opacity: [1, 0.4, 1] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              />
               <span className="font-grotesk tracking-widest text-sm text-mac-gold">COMPETITION DAY: 14 JUNE 2026</span>
             </div>
           </motion.div>

@@ -43,6 +43,34 @@ const budgetItems = [
   { name: 'Materials',                           amount: '฿ 20,000',  percent: 3  },
 ]
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] },
+  }),
+}
+
+const staggerGrid = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+}
+
+const cardItem = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+}
+
+const springHover = {
+  rest: { scale: 1, y: 0 },
+  hover: {
+    scale: 1.025,
+    y: -6,
+    transition: { type: 'spring', stiffness: 300, damping: 22 },
+  },
+}
+
 export default function Engineering() {
   return (
     <div className="pt-24">
@@ -52,6 +80,7 @@ export default function Engineering() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="mb-6"
           >
             <span className="px-4 py-1.5 rounded-full text-xs font-grotesk tracking-[0.2em] text-mac-green"
@@ -59,19 +88,21 @@ export default function Engineering() {
               ENGINEERING EXCELLENCE
             </span>
           </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="font-display leading-none mb-6"
-            style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)', color: 'var(--theme-text)' }}
-          >
-            OUR <span className="text-gradient">ENGINEERING</span>
-          </motion.h1>
+          <div className="overflow-hidden mb-6">
+            <motion.h1
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display leading-none"
+              style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)', color: 'var(--theme-text)' }}
+            >
+              OUR <span className="text-gradient">ENGINEERING</span>
+            </motion.h1>
+          </div>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
             className="text-lg max-w-2xl font-grotesk"
             style={{ color: 'var(--theme-text-muted)' }}
           >
@@ -84,17 +115,20 @@ export default function Engineering() {
       <section className="section-padding pt-0">
         <div className="max-w-5xl mx-auto px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="relative overflow-hidden rounded-3xl"
             style={{ border: '1px solid var(--theme-border)', minHeight: 320 }}
           >
-            <img
+            <motion.img
               src="/IMG5.png"
               alt="Macchanu Car Prototype"
               className="w-full h-full object-cover absolute inset-0"
               style={{ filter: 'saturate(0.75) brightness(0.55)', minHeight: 320 }}
+              whileHover={{ scale: 1.04 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             />
             <div className="absolute inset-0"
               style={{ background: 'linear-gradient(to right, rgba(10,10,15,0.85) 0%, rgba(10,10,15,0.4) 60%, transparent 100%)' }} />
@@ -123,7 +157,11 @@ export default function Engineering() {
             <div className="absolute bottom-5 right-5">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full"
                 style={{ background: 'rgba(10,10,15,0.6)', border: '1px solid rgba(29,209,105,0.3)' }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-mac-green animate-pulse" />
+                <motion.span
+                  className="w-1.5 h-1.5 rounded-full bg-mac-green"
+                  animate={{ scale: [1, 1.6, 1], opacity: [1, 0.3, 1] }}
+                  transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                />
                 <span className="text-[10px] font-grotesk tracking-widest text-mac-green">TESTING &amp; OPTIMIZATION</span>
               </div>
             </div>
@@ -135,8 +173,9 @@ export default function Engineering() {
       <section className="section-padding">
         <div className="max-w-5xl mx-auto px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="mb-12"
           >
@@ -146,44 +185,56 @@ export default function Engineering() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {inventions.map((item, i) => (
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            variants={staggerGrid}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {inventions.map((item) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.15, duration: 0.5 }}
-                viewport={{ once: true }}
+                variants={cardItem}
+                initial="rest"
+                whileHover="hover"
+                animate="rest"
                 className="glass-card-hover group relative overflow-hidden"
               >
-                <div className={`absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r ${item.gradient}`} />
-                <div className="relative z-10 pt-2">
-                  <div className="flex items-start gap-5 mb-6">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform`}>
-                      <span className="font-display text-2xl text-mac-black">{item.letter}</span>
-                    </div>
-                    <div>
-                      <h3 className="font-display text-2xl leading-none mb-2" style={{ color: 'var(--theme-text)' }}>
-                        {item.title.toUpperCase()}
-                      </h3>
-                      <p className="text-sm font-grotesk leading-relaxed" style={{ color: 'var(--theme-text-muted)' }}>
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-3 pt-5" style={{ borderTop: '1px solid var(--theme-border)' }}>
-                    {item.specs.map(spec => (
-                      <div key={spec.label} className="text-center">
-                        <div className="text-[10px] font-grotesk tracking-widest mb-1" style={{ color: 'var(--theme-text-faint)' }}>{spec.label}</div>
-                        <div className="text-sm font-grotesk font-bold text-mac-teal">{spec.value}</div>
+                <motion.div variants={springHover}>
+                  <div className={`absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r ${item.gradient}`} />
+                  <div className="relative z-10 pt-2">
+                    <div className="flex items-start gap-5 mb-6">
+                      <motion.div
+                        className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shrink-0`}
+                        whileHover={{ rotate: [0, -5, 5, 0], scale: 1.08 }}
+                        transition={{ duration: 0.35 }}
+                      >
+                        <span className="font-display text-2xl text-mac-black">{item.letter}</span>
+                      </motion.div>
+                      <div>
+                        <h3 className="font-display text-2xl leading-none mb-2" style={{ color: 'var(--theme-text)' }}>
+                          {item.title.toUpperCase()}
+                        </h3>
+                        <p className="text-sm font-grotesk leading-relaxed" style={{ color: 'var(--theme-text-muted)' }}>
+                          {item.description}
+                        </p>
                       </div>
-                    ))}
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-3 pt-5" style={{ borderTop: '1px solid var(--theme-border)' }}>
+                      {item.specs.map(spec => (
+                        <div key={spec.label} className="text-center">
+                          <div className="text-[10px] font-grotesk tracking-widest mb-1" style={{ color: 'var(--theme-text-faint)' }}>{spec.label}</div>
+                          <div className="text-sm font-grotesk font-bold text-mac-teal">{spec.value}</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -191,8 +242,9 @@ export default function Engineering() {
       <section className="section-padding">
         <div className="max-w-5xl mx-auto px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="mb-12"
           >
@@ -203,7 +255,6 @@ export default function Engineering() {
           </motion.div>
 
           <div className="relative">
-            {/* Vertical line */}
             <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px"
               style={{ background: 'linear-gradient(to bottom, #d6b747, rgba(214,183,71,0.2), #19757e)' }} />
 
@@ -212,25 +263,33 @@ export default function Engineering() {
                 key={item.date}
                 initial={{ opacity: 0, x: i % 2 === 0 ? -24 : 24 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
+                transition={{ delay: i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: true }}
                 className={`relative flex items-start gap-6 mb-6 pl-16 md:pl-0 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
               >
                 <div className={`flex-1 ${i % 2 === 0 ? 'md:text-right md:pr-10' : 'md:text-left md:pl-10'}`}>
-                  <div className="glass-card" style={{ padding: '1.25rem 1.5rem' }}>
+                  <motion.div
+                    className="glass-card"
+                    style={{ padding: '1.25rem 1.5rem' }}
+                    whileHover={{ scale: 1.02, transition: { type: 'spring', stiffness: 300, damping: 22 } }}
+                  >
                     <div className="text-[10px] font-grotesk tracking-[0.2em] text-mac-gold mb-1">{item.date}</div>
                     <h3 className="font-display text-xl leading-none mb-1" style={{ color: 'var(--theme-text)' }}>
                       {item.title.toUpperCase()}
                     </h3>
                     <p className="text-sm font-grotesk" style={{ color: 'var(--theme-text-muted)' }}>{item.desc}</p>
-                  </div>
+                  </motion.div>
                 </div>
 
-                {/* Numbered dot */}
-                <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-mac-gold flex items-center justify-center shrink-0"
-                  style={{ boxShadow: '0 0 16px rgba(214,183,71,0.4)' }}>
+                <motion.div
+                  className="absolute left-6 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-mac-gold flex items-center justify-center shrink-0"
+                  style={{ boxShadow: '0 0 16px rgba(214,183,71,0.4)' }}
+                  whileInView={{ scale: [0, 1.2, 1] }}
+                  transition={{ delay: i * 0.08 + 0.2, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  viewport={{ once: true }}
+                >
                   <span className="font-display text-sm text-mac-black leading-none">{item.num}</span>
-                </div>
+                </motion.div>
 
                 <div className="hidden md:block flex-1" />
               </motion.div>
@@ -243,8 +302,9 @@ export default function Engineering() {
       <section className="section-padding">
         <div className="max-w-4xl mx-auto px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="glass-card"
             style={{ padding: '2.5rem' }}
@@ -259,7 +319,7 @@ export default function Engineering() {
                   key={item.name}
                   initial={{ opacity: 0, x: -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.08 }}
+                  transition={{ delay: i * 0.09, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                   viewport={{ once: true }}
                 >
                   <div className="flex justify-between items-baseline mb-2">
@@ -270,7 +330,7 @@ export default function Engineering() {
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${item.percent}%` }}
-                      transition={{ duration: 1.2, delay: i * 0.1, ease: 'easeOut' }}
+                      transition={{ duration: 1.4, delay: i * 0.1 + 0.2, ease: [0.22, 1, 0.36, 1] }}
                       viewport={{ once: true }}
                       className="h-full rounded-full bg-gradient-to-r from-mac-teal to-mac-gold"
                     />
@@ -291,8 +351,9 @@ export default function Engineering() {
       <section className="section-padding pt-0">
         <div className="max-w-4xl mx-auto px-6 md:px-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
           >
             <span className="px-4 py-1.5 rounded-full text-xs font-grotesk tracking-[0.2em] text-mac-blue mb-6 inline-block"

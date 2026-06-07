@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
+import { Check, FileText, Eye } from 'lucide-react'
 
-// Log scale: ฿5k → 34px, ฿25k → 58px, ฿100k → 82px, ฿300k → 110px
 function logoHeight(amount) {
   const MIN = 34, MAX = 110
   const logMin = Math.log(5000), logMax = Math.log(300000)
@@ -72,6 +72,34 @@ const tiers = [
   },
 ]
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] },
+  }),
+}
+
+const staggerGrid = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+}
+
+const cardItem = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+}
+
+const springHover = {
+  rest: { scale: 1, y: 0 },
+  hover: {
+    scale: 1.025,
+    y: -6,
+    transition: { type: 'spring', stiffness: 300, damping: 22 },
+  },
+}
+
 export default function Sponsorship() {
   return (
     <div className="pt-24">
@@ -81,6 +109,7 @@ export default function Sponsorship() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="mb-6"
           >
             <span className="px-4 py-1.5 rounded-full text-xs font-grotesk tracking-[0.2em] text-mac-gold"
@@ -88,19 +117,21 @@ export default function Sponsorship() {
               SPONSORSHIPS
             </span>
           </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="font-display leading-none mb-6"
-            style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)', color: 'var(--theme-text)' }}
-          >
-            POWER OUR <span className="text-gold-gradient">JOURNEY</span>
-          </motion.h1>
+          <div className="overflow-hidden mb-6">
+            <motion.h1
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display leading-none"
+              style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)', color: 'var(--theme-text)' }}
+            >
+              POWER OUR <span className="text-gold-gradient">JOURNEY</span>
+            </motion.h1>
+          </div>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
             className="text-lg max-w-2xl font-grotesk"
             style={{ color: 'var(--theme-text-muted)' }}
           >
@@ -113,17 +144,20 @@ export default function Sponsorship() {
       <section className="section-padding pt-0">
         <div className="max-w-4xl mx-auto px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="glass-card text-center"
             style={{ padding: '3rem' }}
           >
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-mac-gold/20 to-mac-teal/20 flex items-center justify-center mx-auto mb-4">
-              <svg className="w-7 h-7 text-mac-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </div>
+            <motion.div
+              className="w-14 h-14 rounded-2xl bg-gradient-to-br from-mac-gold/20 to-mac-teal/20 flex items-center justify-center mx-auto mb-4"
+              whileHover={{ rotate: [0, -8, 8, 0], scale: 1.1 }}
+              transition={{ duration: 0.4 }}
+            >
+              <FileText className="w-7 h-7 text-mac-gold" />
+            </motion.div>
             <h2 className="font-display text-3xl md:text-4xl leading-none mb-3" style={{ color: 'var(--theme-text)' }}>
               SPONSORSHIP PROSPECTUS
             </h2>
@@ -131,19 +165,29 @@ export default function Sponsorship() {
               Download our complete sponsorship prospectus for full details on partnership tiers, benefits, and impact.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <a href="/prospectus.pdf" target="_blank" className="btn-gold inline-flex items-center gap-2">
+              <motion.a
+                href="/prospectus.pdf"
+                target="_blank"
+                className="btn-gold inline-flex items-center gap-2"
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+              >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 Download PDF
-              </a>
-              <a href="/sponsorship-prospectus" className="btn-primary inline-flex items-center gap-2">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
+              </motion.a>
+              <motion.a
+                href="/sponsorship-prospectus"
+                className="btn-primary inline-flex items-center gap-2"
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+              >
+                <Eye className="w-4 h-4" />
                 Read Online
-              </a>
+              </motion.a>
             </div>
           </motion.div>
         </div>
@@ -153,8 +197,9 @@ export default function Sponsorship() {
       <section className="section-padding">
         <div className="max-w-4xl mx-auto px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="text-center mb-10"
           >
@@ -166,8 +211,9 @@ export default function Sponsorship() {
 
           {/* Tracker card */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="glass-card mb-10"
             style={{ padding: '2rem 2.5rem' }}
@@ -191,12 +237,11 @@ export default function Sponsorship() {
               </div>
             </div>
 
-            {/* Progress bar */}
             <div className="h-2 rounded-full overflow-hidden mb-2.5" style={{ background: 'var(--theme-border)' }}>
               <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: `${pct}%` }}
-                transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: true }}
                 className="h-full rounded-full"
                 style={{ background: 'linear-gradient(90deg, #19757e, #d6b747)' }}
@@ -211,7 +256,6 @@ export default function Sponsorship() {
               </span>
             </div>
 
-            {/* Sponsor breakdown */}
             <div className="mt-5 pt-5 flex flex-wrap gap-4" style={{ borderTop: '1px solid var(--theme-border)' }}>
               {sponsors.map(s => (
                 <div key={s.name} className="flex items-center gap-2">
@@ -231,26 +275,37 @@ export default function Sponsorship() {
             </div>
           </motion.div>
 
-          {/* Sponsor logos — sized by tier */}
-          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
-            {[...sponsors].sort((a, b) => b.amount - a.amount).map((s, i) => {
+          {/* Sponsor logos */}
+          <motion.div
+            className="flex flex-wrap justify-center items-center gap-10 md:gap-16"
+            variants={staggerGrid}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {[...sponsors].sort((a, b) => b.amount - a.amount).map((s) => {
               const h = logoHeight(s.amount)
               return (
                 <motion.div
                   key={s.name}
-                  initial={{ opacity: 0, scale: 0.88 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.15, duration: 0.5 }}
-                  viewport={{ once: true }}
+                  variants={cardItem}
                   className="flex flex-col items-center gap-3"
                 >
-                  <a href={s.url} target="_blank" rel="noopener noreferrer" className="block transition-opacity hover:opacity-80">
+                  <motion.a
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                    whileHover={{ scale: 1.08, y: -3 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 22 }}
+                  >
                     <img
                       src={s.logo}
                       alt={s.name}
                       style={{ height: h, width: 'auto', maxWidth: 200, objectFit: 'contain', ...(s.logo === '/ANS.png' && { borderRadius: '16px' }) }}
                     />
-                  </a>
+                  </motion.a>
                   <div className="text-center">
                     <div className="text-[10px] font-grotesk tracking-[0.18em]" style={{ color: 'var(--theme-text-faint)' }}>
                       {s.tierName.toUpperCase()} TIER
@@ -259,7 +314,7 @@ export default function Sponsorship() {
                 </motion.div>
               )
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -267,8 +322,9 @@ export default function Sponsorship() {
       <section className="section-padding">
         <div className="max-w-5xl mx-auto px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="mb-12"
           >
@@ -278,54 +334,62 @@ export default function Sponsorship() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {tiers.map((tier, i) => (
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"
+            variants={staggerGrid}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            {tiers.map((tier) => (
               <motion.div
                 key={tier.name}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                viewport={{ once: true }}
+                variants={cardItem}
+                initial="rest"
+                whileHover="hover"
+                animate="rest"
                 className="glass-card-hover relative overflow-hidden flex flex-col"
               >
-                <div className={`absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r ${tier.gradient}`} />
+                <motion.div variants={springHover} style={{ display: 'contents' }}>
+                  <div className={`absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r ${tier.gradient}`} />
 
-                <div className="relative z-10 pt-2 flex flex-col flex-1">
-                  <div className="flex items-start justify-between mb-4">
-                    <span className="font-display text-4xl leading-none" style={{ color: tier.accent, opacity: 0.5 }}>
-                      {tier.num}
-                    </span>
+                  <div className="relative z-10 pt-2 flex flex-col flex-1">
+                    <div className="flex items-start justify-between mb-4">
+                      <span className="font-display text-4xl leading-none" style={{ color: tier.accent, opacity: 0.5 }}>
+                        {tier.num}
+                      </span>
+                    </div>
+
+                    <h3 className="font-display text-2xl leading-none mb-1" style={{ color: 'var(--theme-text)' }}>
+                      {tier.name.toUpperCase()}
+                    </h3>
+                    <p className="font-display text-xl mb-4" style={{ color: tier.accent }}>
+                      {tier.amount}
+                    </p>
+
+                    <ul className="space-y-2.5 mb-6 flex-1">
+                      {tier.features.map(f => (
+                        <li key={f} className="text-xs font-grotesk flex items-start gap-2" style={{ color: 'var(--theme-text-muted)' }}>
+                          <Check className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: '#1dd169' }} />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <motion.a
+                      href="/sponsorship-prospectus"
+                      className="block w-full text-center py-2 rounded-full font-grotesk text-xs tracking-widest transition-colors cursor-pointer"
+                      style={{ border: `1px solid ${tier.accent}40`, color: tier.accent }}
+                      whileHover={{ background: `${tier.accent}12`, borderColor: `${tier.accent}70` }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      VIEW DETAILS
+                    </motion.a>
                   </div>
-
-                  <h3 className="font-display text-2xl leading-none mb-1" style={{ color: 'var(--theme-text)' }}>
-                    {tier.name.toUpperCase()}
-                  </h3>
-                  <p className="font-display text-xl mb-4" style={{ color: tier.accent }}>
-                    {tier.amount}
-                  </p>
-
-                  <ul className="space-y-2.5 mb-6 flex-1">
-                    {tier.features.map(f => (
-                      <li key={f} className="text-xs font-grotesk flex items-start gap-2" style={{ color: 'var(--theme-text-muted)' }}>
-                        <span className="text-mac-green mt-0.5 shrink-0 text-sm">✓</span>
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <a
-                    href="/sponsorship-prospectus"
-                    className="block w-full text-center py-2 rounded-full font-grotesk text-xs tracking-widest transition-all"
-                    style={{ border: `1px solid ${tier.accent}40`, color: tier.accent }}
-                    onMouseEnter={e => { e.target.style.background = `${tier.accent}12` }}
-                    onMouseLeave={e => { e.target.style.background = 'transparent' }}
-                  >
-                    VIEW DETAILS
-                  </a>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -333,8 +397,9 @@ export default function Sponsorship() {
       <section className="section-padding">
         <div className="max-w-4xl mx-auto px-6 md:px-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
             className="glass-card text-center"
             style={{ padding: '3rem' }}
@@ -346,8 +411,25 @@ export default function Sponsorship() {
               Let's discuss how your brand can be part of our journey to the F1 in Schools World Finals 2026.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <a href="mailto:matchanu.racing@gmail.com" className="btn-primary">Contact Us</a>
-              <a href="/prospectus.pdf" target="_blank" className="btn-gold">View Prospectus</a>
+              <motion.a
+                href="mailto:matchanu.racing@gmail.com"
+                className="btn-primary"
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+              >
+                Contact Us
+              </motion.a>
+              <motion.a
+                href="/prospectus.pdf"
+                target="_blank"
+                className="btn-gold"
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+              >
+                View Prospectus
+              </motion.a>
             </div>
           </motion.div>
         </div>
