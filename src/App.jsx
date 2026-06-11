@@ -11,6 +11,7 @@ import PdfViewer from './pages/PdfViewer'
 import Merch from './pages/Merch'
 import AiChat from './pages/AiChat'
 import Footer from './components/Footer'
+import AutoScroll from './components/AutoScroll'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -63,6 +64,7 @@ function App() {
             </Route>
             <Route path="/ai" element={<AiChat />} />
           </Routes>
+          <AutoScroll />
         </div>
       </Router>
     </ThemeProvider>
