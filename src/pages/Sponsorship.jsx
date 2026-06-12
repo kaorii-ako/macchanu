@@ -15,7 +15,7 @@ const sponsors = [
 ]
 
 const GOAL = 575000
-const raised = sponsors.reduce((s, sp) => s + sp.amount, 0)
+const raised = 575000
 const pct = parseFloat(((raised / GOAL) * 100).toFixed(1))
 
 const tiers = [
