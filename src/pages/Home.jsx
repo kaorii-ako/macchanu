@@ -69,7 +69,7 @@ const teamPreview = [
 ]
 
 const MARQUEE_TEXT = [
-  'F1 IN SCHOOLS',
+  'STEM RACING',
   'THAILAND NATIONALS 2025',
   'WORLD FINALS · JAPAN 2026',
   'RACING BY MOTION',
@@ -173,7 +173,7 @@ export default function Home() {
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-grotesk tracking-[0.25em] text-mac-gold"
               style={{ background: 'rgba(214,183,71,0.08)', border: '1px solid rgba(214,183,71,0.2)' }}>
               <span className="w-1.5 h-1.5 rounded-full bg-mac-gold animate-pulse" />
-              F1 IN SCHOOLS · NATIONAL FINALS 2026
+              STEM RACING · NATIONAL FINALS 2026
             </span>
           </motion.div>
 
